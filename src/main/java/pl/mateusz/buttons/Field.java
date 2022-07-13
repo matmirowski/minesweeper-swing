@@ -10,8 +10,9 @@ import javax.swing.*;
 public class Field extends JButton {
     private int x_cord;
     private int y_cord;
-    private boolean isBomb = false;
-    private boolean isHidden = true;
+    private boolean bomb = false;
+    private boolean hidden = true;
+    private boolean marked = false;
 
     public Field( int x, int y) {
         x_cord = x;
@@ -20,15 +21,30 @@ public class Field extends JButton {
 
     public void setBomb (boolean bool) {
         if (bool) {
-            isBomb = true;
-            ImageIcon icon = new ImageIcon("images/icons/bomb.jpg");
-            this.setIcon(icon);
+            bomb = true;
+            setIcon("Bomb");
         }
         else {
-            isBomb = false;
-            ImageIcon icon = new ImageIcon("images/icons/empty-field.jpg");
+            bomb = false;
+            setIcon("Empty");
         }
     }
+
+
+    public void setIcon(String iconType) {
+        switch (iconType) {
+            case "Marked" -> {
+                this.setIcon(new ImageIcon("images/icons/marked-field.jpg"));
+            }
+            case "Bomb" -> {
+                this.setIcon(new ImageIcon("images/icons/bomb.jpg"));
+            }
+            case "Empty" -> {
+                this.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
+            }
+        }
+    }
+
 
 
 

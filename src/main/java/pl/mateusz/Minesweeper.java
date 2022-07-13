@@ -1,6 +1,5 @@
 package pl.mateusz;
 
-import lombok.Getter;
 import pl.mateusz.buttons.Field;
 import pl.mateusz.buttons.MineCounter;
 import pl.mateusz.buttons.ResetButton;
@@ -8,6 +7,8 @@ import pl.mateusz.buttons.Timer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,7 +36,8 @@ public class Minesweeper {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
-                f.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
+                f.setIcon("Empty");
+                setFieldMouseEvents(f);
                 frame.addComponentsToPanels(f);
                 fields.add(f);
             }
@@ -56,6 +58,32 @@ public class Minesweeper {
                 }
             } while (occupied);
         }
+    }
+
+    private void setFieldMouseEvents(Field f) {
+        f.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if (SwingUtilities.isRightMouseButton(me)) { // right click
+                    if (f.isMarked()) {
+                        f.setMarked(false);
+                        f.setIcon("Empty");
+                        mineCounter.increase();
+                    }
+                    else {
+                        if (!mineCounter.getText().equals("000")) {
+                            f.setMarked(true);
+                            f.setIcon("Marked");
+                            mineCounter.decrease();
+                        }
+
+                    }
+                }
+                else if (SwingUtilities.isLeftMouseButton(me)) { // left click
+
+                }
+            }
+        });
     }
 
 }
