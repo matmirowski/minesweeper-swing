@@ -18,5 +18,18 @@ public class Field extends JButton {
         y_cord = y;
     }
 
+    public void setBomb (boolean bool) {
+        if (bool) {
+            isBomb = true;
+            ImageIcon icon = new ImageIcon("images/icons/bomb.jpg");
+            this.setIcon(icon);
+        }
+        else {
+            isBomb = false;
+            ImageIcon icon = new ImageIcon("images/icons/empty-field.jpg");
+        }
+    }
+
+
 
 }

@@ -9,6 +9,7 @@ import pl.mateusz.buttons.Timer;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Minesweeper {
     private final Frame frame;
@@ -22,6 +23,7 @@ public class Minesweeper {
         frame.generateComponents();
         frame.addComponentsToPanels(mineCounter, resetButton, timer);
         generateFields(8);
+        generateBombs(10);
         frame.pack();
         frame.setVisible(true);
     }
@@ -33,9 +35,26 @@ public class Minesweeper {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
+                f.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
                 frame.addComponentsToPanels(f);
                 fields.add(f);
             }
+        }
+    }
+
+    public void generateBombs(int quantity) {
+        int size = fields.size();
+        Random random = new Random();
+        for (int i=0; i<quantity; i++) {
+            boolean occupied = true;
+            do {
+                int bombIndex = random.nextInt(size);
+                Field bombField = fields.get(bombIndex);
+                if (!bombField.isBomb()) {
+                    bombField.setBomb(true);
+                    occupied = false;
+                }
+            } while (occupied);
         }
     }
 
