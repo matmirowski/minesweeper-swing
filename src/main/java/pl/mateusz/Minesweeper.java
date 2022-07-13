@@ -21,6 +21,10 @@ public class Minesweeper {
 
     public Minesweeper() {
         frame = new Frame();
+        init();
+    }
+
+    private void init() {
         frame.generateComponents();
         frame.addComponentsToPanels(mineCounter, resetButton, timer);
         generateFields(8);
@@ -28,7 +32,7 @@ public class Minesweeper {
         frame.pack();
         frame.setVisible(true);
     }
-
+    
 
     public void generateFields(int size) {
         for(int y=1; y<=size; y++) {
