@@ -29,6 +29,7 @@ public class Minesweeper {
         frame.addComponentsToPanels(mineCounter, resetButton, timer);
         generateFields(8);
         generateBombs(10);
+        generateNumberFields();
         frame.pack();
         frame.setVisible(true);
     }
@@ -62,6 +63,39 @@ public class Minesweeper {
                 }
             } while (occupied);
         }
+    }
+
+    public void generateNumberFields() {
+        for (Field field : fields) { // for each field
+            if (field.isBomb())
+                continue;
+
+            int minesAround = 0;
+            int x = field.getX_cord();
+            int y = field.getY_cord();
+
+            minesAround += checkBombPlacement(x+1,y); // left
+            minesAround += checkBombPlacement(x-1,y); // right
+            minesAround += checkBombPlacement(x,y-1); // top
+            minesAround += checkBombPlacement(x,y+1); // bottom
+            minesAround += checkBombPlacement(x-1,y-1); // top left
+            minesAround += checkBombPlacement(x+1,y-1); // top right
+            minesAround += checkBombPlacement(x-1,y+1); // bottom left
+            minesAround += checkBombPlacement(x+1,y+1); // bottom right
+
+            field.setIcon(String.valueOf(minesAround));
+        }
+    }
+
+    private int checkBombPlacement(int x, int y) {
+        Field field = fields.stream()
+                    .filter(f -> f.getX_cord()==x)
+                    .filter(f -> f.getY_cord()==y)
+                    .findFirst()
+                    .orElse(null);
+        if (field != null && field.isBomb())
+            return 1;
+        return 0;
     }
 
     private void fieldMouseEvents(Field f) {

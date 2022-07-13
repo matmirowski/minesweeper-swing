@@ -42,6 +42,33 @@ public class Field extends JButton {
             case "Hidden" -> {
                 this.setIcon(new ImageIcon("images/icons/hidden-field.jpg"));
             }
+            case "Empty" -> {
+                this.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
+            }
+            case "1" -> {
+                this.setIcon(new ImageIcon("images/icons/1.jpg"));
+            }
+            case "2" -> {
+                this.setIcon(new ImageIcon("images/icons/2.jpg"));
+            }
+            case "3" -> {
+                this.setIcon(new ImageIcon("images/icons/3.jpg"));
+            }
+            case "4" -> {
+                this.setIcon(new ImageIcon("images/icons/4.jpg"));
+            }
+            case "5" -> {
+                this.setIcon(new ImageIcon("images/icons/5.jpg"));
+            }
+            case "6" -> {
+                this.setIcon(new ImageIcon("images/icons/6.jpg"));
+            }
+            case "7" -> {
+                this.setIcon(new ImageIcon("images/icons/7.jpg"));
+            }
+            case "8" -> {
+                this.setIcon(new ImageIcon("images/icons/8.jpg"));
+            }
         }
     }
 
