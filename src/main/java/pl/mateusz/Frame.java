@@ -19,7 +19,7 @@ public class Frame extends JFrame {
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLayout(new BorderLayout(5,5));
+        this.setLayout(new BorderLayout(5,3));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
     }
 
