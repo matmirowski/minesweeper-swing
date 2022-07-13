@@ -34,40 +34,40 @@ public class Field extends JButton {
     public void setIcon(String iconType) {
         switch (iconType) {
             case "Marked" -> {
-                this.setIcon(new ImageIcon("images/icons/marked-field.jpg"));
+                this.setIcon(new ImageIcon("images/icons/marked-field.png"));
             }
             case "Bomb" -> {
-                this.setIcon(new ImageIcon("images/icons/bomb.jpg"));
+                this.setIcon(new ImageIcon("images/icons/bomb.png"));
             }
             case "Hidden" -> {
-                this.setIcon(new ImageIcon("images/icons/hidden-field.jpg"));
+                this.setIcon(new ImageIcon("images/icons/hidden-field.png"));
             }
             case "Empty" -> {
-                this.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
+                this.setIcon(new ImageIcon("images/icons/empty-field.png"));
             }
             case "1" -> {
-                this.setIcon(new ImageIcon("images/icons/1.jpg"));
+                this.setIcon(new ImageIcon("images/icons/1.png"));
             }
             case "2" -> {
-                this.setIcon(new ImageIcon("images/icons/2.jpg"));
+                this.setIcon(new ImageIcon("images/icons/2.png"));
             }
             case "3" -> {
-                this.setIcon(new ImageIcon("images/icons/3.jpg"));
+                this.setIcon(new ImageIcon("images/icons/3.png"));
             }
             case "4" -> {
-                this.setIcon(new ImageIcon("images/icons/4.jpg"));
+                this.setIcon(new ImageIcon("images/icons/4.png"));
             }
             case "5" -> {
-                this.setIcon(new ImageIcon("images/icons/5.jpg"));
+                this.setIcon(new ImageIcon("images/icons/5.png"));
             }
             case "6" -> {
-                this.setIcon(new ImageIcon("images/icons/6.jpg"));
+                this.setIcon(new ImageIcon("images/icons/6.png"));
             }
             case "7" -> {
-                this.setIcon(new ImageIcon("images/icons/7.jpg"));
+                this.setIcon(new ImageIcon("images/icons/7.png"));
             }
             case "8" -> {
-                this.setIcon(new ImageIcon("images/icons/8.jpg"));
+                this.setIcon(new ImageIcon("images/icons/8.png"));
             }
         }
     }
