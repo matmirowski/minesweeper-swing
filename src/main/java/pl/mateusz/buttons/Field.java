@@ -26,7 +26,7 @@ public class Field extends JButton {
         }
         else {
             bomb = false;
-            setIcon("Empty");
+            setIcon("Hidden");
         }
     }
 
@@ -39,8 +39,8 @@ public class Field extends JButton {
             case "Bomb" -> {
                 this.setIcon(new ImageIcon("images/icons/bomb.jpg"));
             }
-            case "Empty" -> {
-                this.setIcon(new ImageIcon("images/icons/empty-field.jpg"));
+            case "Hidden" -> {
+                this.setIcon(new ImageIcon("images/icons/hidden-field.jpg"));
             }
         }
     }

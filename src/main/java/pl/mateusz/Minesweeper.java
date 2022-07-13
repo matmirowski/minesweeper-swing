@@ -40,7 +40,7 @@ public class Minesweeper {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
-                f.setIcon("Empty");
+                f.setIcon("Hidden");
                 fieldMouseEvents(f);
                 frame.addComponentsToPanels(f);
                 fields.add(f);
@@ -71,7 +71,7 @@ public class Minesweeper {
                 if (SwingUtilities.isRightMouseButton(me)) { // right click
                     if (f.isMarked()) {
                         f.setMarked(false);
-                        f.setIcon("Empty");
+                        f.setIcon("Hidden");
                         mineCounter.increase();
                     }
                     else {
