@@ -18,6 +18,7 @@ public class Minesweeper {
     private final ResetButton resetButton = new ResetButton();
     private final Timer timer = new Timer();
     private final MineCounter mineCounter = new MineCounter();
+    private int bombs = 0;
 
     public Minesweeper() {
         frame = new Frame();
@@ -63,6 +64,7 @@ public class Minesweeper {
                 }
             } while (occupied);
         }
+        bombs = quantity;
     }
 
     public void generateNumberFields() {
@@ -96,6 +98,17 @@ public class Minesweeper {
         if (field != null && field.isBomb())
             return 1;
         return 0;
+    }
+
+    private boolean checkWin() {
+        int matchingFields = 0;
+        for (Field field : fields) {
+            if (field.isBomb() && field.isMarked())
+                matchingFields++;
+        }
+        if (matchingFields == bombs)
+            return true;
+        return false;
     }
 
     private void fieldMouseEvents(Field f) {
