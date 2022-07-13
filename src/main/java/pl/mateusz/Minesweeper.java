@@ -32,7 +32,7 @@ public class Minesweeper {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
 
     public void generateFields(int size) {
         for(int y=1; y<=size; y++) {
@@ -41,7 +41,7 @@ public class Minesweeper {
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
                 f.setIcon("Empty");
-                setFieldMouseEvents(f);
+                fieldMouseEvents(f);
                 frame.addComponentsToPanels(f);
                 fields.add(f);
             }
@@ -64,7 +64,7 @@ public class Minesweeper {
         }
     }
 
-    private void setFieldMouseEvents(Field f) {
+    private void fieldMouseEvents(Field f) {
         f.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
