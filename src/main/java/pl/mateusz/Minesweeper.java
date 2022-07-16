@@ -125,14 +125,13 @@ public class Minesweeper {
         resetButton.setIcon(new ImageIcon("images/icons/rb_lose.gif"));
     }
 
-    //TODO add restart function
     private void restart() {
         fields.forEach(Field::reset);
         generateBombs(bombs);
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        //TODO test
+        //TODO TIMER
         timer.reset();
         timer.start();
     }
@@ -163,6 +162,10 @@ public class Minesweeper {
         emptyFieldsDisplay(x-1,y);
         emptyFieldsDisplay(x,y+1);
         emptyFieldsDisplay(x,y-1);
+        emptyFieldsDisplay(x+1,y+1);
+        emptyFieldsDisplay(x+1,y-1);
+        emptyFieldsDisplay(x-1,y+1);
+        emptyFieldsDisplay(x-1,y-1);
 
     }
 
