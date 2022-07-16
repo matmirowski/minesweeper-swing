@@ -1,8 +1,6 @@
 package pl.mateusz;
 
-import pl.mateusz.buttons.Field;
-import pl.mateusz.buttons.MineCounter;
-import pl.mateusz.buttons.ResetButton;
+import pl.mateusz.buttons.*;
 import pl.mateusz.buttons.Timer;
 
 import javax.swing.*;
@@ -42,7 +40,6 @@ public class Minesweeper {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
-                f.setIcon("Hidden");
                 fieldMouseEvents(f);
                 frame.addComponentsToPanels(f);
                 fields.add(f);
@@ -57,9 +54,9 @@ public class Minesweeper {
             boolean occupied = true;
             do {
                 int bombIndex = random.nextInt(size);
-                Field bombField = fields.get(bombIndex);
-                if (!bombField.isBomb()) {
-                    bombField.setBomb(true);
+                Field field = fields.get(bombIndex);
+                if (field.getType().equals(FieldType.EMPTY)) {
+                    field.setType(FieldType.BOMB);
                     occupied = false;
                 }
             } while (occupied);
@@ -69,7 +66,7 @@ public class Minesweeper {
 
     public void generateNumberFields() {
         for (Field field : fields) { // for each field
-            if (field.isBomb())
+            if (field.getType().equals(FieldType.BOMB))
                 continue;
 
             int minesAround = 0;
@@ -85,7 +82,16 @@ public class Minesweeper {
             minesAround += checkBombPlacement(x-1,y+1); // bottom left
             minesAround += checkBombPlacement(x+1,y+1); // bottom right
 
-            field.setIcon(String.valueOf(minesAround));
+            switch (minesAround) {
+                case 1 -> field.setType(FieldType.ONE);
+                case 2 -> field.setType(FieldType.TWO);
+                case 3 -> field.setType(FieldType.THREE);
+                case 4 -> field.setType(FieldType.FOUR);
+                case 5 -> field.setType(FieldType.FIVE);
+                case 6 -> field.setType(FieldType.SIX);
+                case 7 -> field.setType(FieldType.SEVEN);
+                case 8 -> field.setType(FieldType.EIGHT);
+            }
         }
     }
 
@@ -95,7 +101,7 @@ public class Minesweeper {
                     .filter(f -> f.getY_cord()==y)
                     .findFirst()
                     .orElse(null);
-        if (field != null && field.isBomb())
+        if (field != null && field.getType().equals(FieldType.BOMB))
             return 1;
         return 0;
     }
@@ -103,12 +109,23 @@ public class Minesweeper {
     private boolean checkWin() {
         int matchingFields = 0;
         for (Field field : fields) {
-            if (field.isBomb() && field.isMarked())
+            if (field.getType().equals(FieldType.BOMB) && field.isMarked())
                 matchingFields++;
         }
         if (matchingFields == bombs)
             return true;
         return false;
+    }
+
+    private void gameOver() {
+        for (Field field : fields) {
+            field.display();
+        }
+    }
+
+    //TODO add restart function
+    private void restart() {
+
     }
 
     private void fieldMouseEvents(Field f) {
@@ -119,18 +136,29 @@ public class Minesweeper {
                     if (!f.isMarked() && mineCounter.getText().equals("000"))
                         return;
                     else if (f.isMarked()) { // if field is already marked we unmark it
-                        f.setMarked(false);
-                        f.setIcon("Hidden");
+                        f.unmark();
                         mineCounter.increase();
                     }
                     else { // if field isn't marked we can set it to marked
-                        f.setMarked(true);
-                        f.setIcon("Marked");
+                        f.mark();
                         mineCounter.decrease();
                     }
+
+                    //TODO add win case
+                    if (checkWin()) { // if WIN
+                    }
+                    
                 }
                 else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
-
+                    if (!f.isHidden()) // if field is already shown
+                        return;
+                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB)) // if field isn't bomb / marked
+                        f.display();
+                    else if (f.getType().equals(FieldType.BOMB)) { // if you clicked on bomb
+                        f.setType(FieldType.EXPLODED);
+                        //TODO add lose case
+                        gameOver();
+                    }
                 }
             }
         });
