@@ -115,22 +115,21 @@ public class Minesweeper {
         f.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                if (SwingUtilities.isRightMouseButton(me)) { // right click
-                    if (f.isMarked()) {
+                if (SwingUtilities.isRightMouseButton(me)) { // *** RIGHT CLICK ***
+                    if (!f.isMarked() && mineCounter.getText().equals("000"))
+                        return;
+                    else if (f.isMarked()) { // if field is already marked we unmark it
                         f.setMarked(false);
                         f.setIcon("Hidden");
                         mineCounter.increase();
                     }
-                    else {
-                        if (!mineCounter.getText().equals("000")) {
-                            f.setMarked(true);
-                            f.setIcon("Marked");
-                            mineCounter.decrease();
-                        }
-
+                    else { // if field isn't marked we can set it to marked
+                        f.setMarked(true);
+                        f.setIcon("Marked");
+                        mineCounter.decrease();
                     }
                 }
-                else if (SwingUtilities.isLeftMouseButton(me)) { // left click
+                else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
 
                 }
             }
