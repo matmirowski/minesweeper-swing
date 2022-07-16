@@ -147,7 +147,7 @@ public class Minesweeper {
                     //TODO add win case
                     if (checkWin()) { // if WIN
                     }
-                    
+
                 }
                 else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
                     if (!f.isHidden()) // if field is already shown
