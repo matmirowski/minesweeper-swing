@@ -122,7 +122,7 @@ public class Minesweeper {
         for (Field field : fields) {
             field.display();
         }
-        resetButton.setIcon(new ImageIcon("images/icons/rb_lose.png"));
+        resetButton.setIcon(new ImageIcon("images/icons/rb_lose.gif"));
     }
 
     //TODO add restart function
@@ -135,6 +135,35 @@ public class Minesweeper {
         //TODO test
         timer.reset();
         timer.start();
+    }
+
+    private void emptyFieldsDisplay(int x, int y) {
+        // *** finding that field ***
+        Field f = fields.stream()
+                .filter(field -> field.getX_cord()==x)
+                .filter(field -> field.getY_cord()==y)
+                .findFirst()
+                .orElse(null);
+
+        // *** if field doesn't exist OR is marked OR is shown
+        if (f==null || f.isMarked() || !f.isHidden())
+            return;
+
+
+        // *** if that's NOT empty field ***
+        if (!f.getType().equals(FieldType.EMPTY)) {
+            f.display();
+            return;
+        }
+
+        // *** if that's empty field ***
+
+        f.display();
+        emptyFieldsDisplay(x+1,y);
+        emptyFieldsDisplay(x-1,y);
+        emptyFieldsDisplay(x,y+1);
+        emptyFieldsDisplay(x,y-1);
+
     }
 
     private void fieldMouseEvents(Field f) {
@@ -165,8 +194,14 @@ public class Minesweeper {
                 else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
                     if (!f.isHidden()) // if field is already shown
                         return;
-                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB)) // if field isn't bomb / marked
+
+                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB) && // if field is a numeric field
+                            !f.getType().equals(FieldType.EMPTY))
                         f.display();
+
+                    else if (!f.isMarked() && f.getType().equals(FieldType.EMPTY)) // if field is empty
+                        emptyFieldsDisplay(f.getX_cord(), f.getY_cord());
+
                     else if (f.getType().equals(FieldType.BOMB)) { // if you clicked on bomb
                         f.setType(FieldType.EXPLODED);
                         gameOver();
