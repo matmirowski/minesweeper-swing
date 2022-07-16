@@ -1,7 +1,7 @@
 package pl.mateusz;
 
 import pl.mateusz.buttons.*;
-import pl.mateusz.buttons.Timer;
+import pl.mateusz.buttons.TimerButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class Minesweeper {
     private final Frame frame;
     private final ArrayList<Field> fields = new ArrayList<>();
     private final ResetButton resetButton = new ResetButton();
-    private final Timer timer = new Timer();
+    private final TimerButton timerButton = new TimerButton();
     private final MineCounter mineCounter = new MineCounter();
     private int bombs = 0;
 
@@ -25,7 +25,7 @@ public class Minesweeper {
 
     private void init() {
         frame.generateComponents();
-        frame.addComponentsToPanels(mineCounter, resetButton, timer);
+        frame.addComponentsToPanels(mineCounter, resetButton, timerButton);
         generateFields(8);
         generateBombs(10);
         generateNumberFields();
@@ -122,7 +122,8 @@ public class Minesweeper {
         for (Field field : fields) {
             field.display();
         }
-        resetButton.setIcon(new ImageIcon("images/icons/rb_lose.gif"));
+        resetButton.playLoseAnimation();
+        timerButton.stop();
     }
 
     private void restart() {
@@ -131,13 +132,13 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        //TODO TIMER
-        timer.reset();
-        timer.start();
+        timerButton.reset();
     }
 
     private void emptyFieldsDisplay(int x, int y) {
-        // *** finding that field ***
+
+        // *** finding field ***
+
         Field f = fields.stream()
                 .filter(field -> field.getX_cord()==x)
                 .filter(field -> field.getY_cord()==y)
@@ -145,17 +146,18 @@ public class Minesweeper {
                 .orElse(null);
 
         // *** if field doesn't exist OR is marked OR is shown
+
         if (f==null || f.isMarked() || !f.isHidden())
             return;
 
-
         // *** if that's NOT empty field ***
+
         if (!f.getType().equals(FieldType.EMPTY)) {
             f.display();
             return;
         }
 
-        // *** if that's empty field ***
+        // *** if field is empty ***
 
         f.display();
         emptyFieldsDisplay(x+1,y);
@@ -166,7 +168,6 @@ public class Minesweeper {
         emptyFieldsDisplay(x+1,y-1);
         emptyFieldsDisplay(x-1,y+1);
         emptyFieldsDisplay(x-1,y-1);
-
     }
 
     private void fieldMouseEvents(Field f) {
@@ -195,6 +196,9 @@ public class Minesweeper {
 
 
                 else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
+                    if (timerButton.getText().equals("000"))
+                        timerButton.start();
+
                     if (!f.isHidden()) // if field is already shown
                         return;
 

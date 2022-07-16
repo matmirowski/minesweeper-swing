@@ -4,7 +4,7 @@ import lombok.Getter;
 import pl.mateusz.buttons.Field;
 import pl.mateusz.buttons.MineCounter;
 import pl.mateusz.buttons.ResetButton;
-import pl.mateusz.buttons.Timer;
+import pl.mateusz.buttons.TimerButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class Frame extends JFrame {
 
     }
 
-    public void addComponentsToPanels(MineCounter mc, ResetButton rb, Timer tm) {
+    public void addComponentsToPanels(MineCounter mc, ResetButton rb, TimerButton tm) {
         topPanel.add(mc);
         topPanel.add(rb);
         topPanel.add(tm);

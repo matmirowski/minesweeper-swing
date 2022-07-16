@@ -2,6 +2,8 @@ package pl.mateusz.buttons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ResetButton extends JButton {
     public ResetButton() { //resetbutton initial configuration
@@ -9,5 +11,17 @@ public class ResetButton extends JButton {
         setIcon(new ImageIcon("images/icons/rb.gif"));
         setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         setContentAreaFilled(false);
+    }
+
+    public void playLoseAnimation() {
+        setIcon(new ImageIcon("images/icons/rb_lose.gif"));
+        //TODO loseAnimation
+//        Timer timer = new Timer(3400, new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                lopl;
+//            }
+//        })
     }
 }

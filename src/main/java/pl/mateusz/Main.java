@@ -6,6 +6,7 @@ public class Main {
         Minesweeper minesweeper = new Minesweeper();
         //TODO lose restartbutton animation is being played only once
         //TODO lpm/rpm animations
+        //TODO getClass().getResource("/Boom.gif"); // move icons to resources
 
     }
 }
