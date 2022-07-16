@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -114,8 +115,24 @@ public class Minesweeper {
                 matchingFields++;
         }
         if (matchingFields == bombs)
-            return true;
+            win();
         return false;
+    }
+
+    private void win() {
+        timerButton.stop();
+        int score = Integer.parseInt(timerButton.getText());
+        String[] options = {"Yes","No"};
+//        int choice = JOptionPane.showConfirmDialog(null, "You've won! Your score is: " + score
+//                        + " seconds. Do you want to play again?"
+//                        ,"Congratulations!",JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
+                + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
+                , new ImageIcon("images/icons/icon.png"), options, null);
+        if (choice==0)
+            restart();
+        else
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
     private void gameOver() {
@@ -175,7 +192,9 @@ public class Minesweeper {
             @Override
             public void mouseClicked(MouseEvent me) {
 
-                if (SwingUtilities.isRightMouseButton(me)) { // *** RIGHT CLICK ***
+                // *** RIGHT CLICK ***
+
+                if (SwingUtilities.isRightMouseButton(me)) {
                     if ((!f.isMarked() && mineCounter.getText().equals("000"))) // if we have no more mines
                         return;
                     if (!f.isHidden()) // if field is already shown
@@ -188,14 +207,12 @@ public class Minesweeper {
                         f.mark();
                         mineCounter.decrease();
                     }
-
-                    //TODO add win case
-                    if (checkWin()) { // if WIN
-                    }
+                    checkWin();
                 }
 
+                // *** LEFT CLICK ***
 
-                else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
+                else if (SwingUtilities.isLeftMouseButton(me)) {
                     if (timerButton.getText().equals("000"))
                         timerButton.start();
 
