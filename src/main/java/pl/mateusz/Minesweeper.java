@@ -131,13 +131,15 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.png"));
         mineCounter.setText("010");
+        //TODO test
+        timer.reset();
+        timer.start();
     }
 
     private void fieldMouseEvents(Field f) {
         f.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-
 
                 if (SwingUtilities.isRightMouseButton(me)) { // *** RIGHT CLICK ***
                     if ((!f.isMarked() && mineCounter.getText().equals("000"))) // if we have no more mines
