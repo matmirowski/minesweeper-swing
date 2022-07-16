@@ -35,7 +35,7 @@ public class Minesweeper {
         frame.setVisible(true);
     }
 
-    public void generateFields(int size) {
+    private void generateFields(int size) {
         for(int y=1; y<=size; y++) {
             for(int x=1; x<=size; x++) {
                 Field f = new Field(x,y);
@@ -49,7 +49,7 @@ public class Minesweeper {
         }
     }
 
-    public void generateBombs(int quantity) {
+    private void generateBombs(int quantity) {
         int size = fields.size();
         Random random = new Random();
         for (int i=0; i<quantity; i++) {
@@ -66,7 +66,7 @@ public class Minesweeper {
         bombs = quantity;
     }
 
-    public void generateNumberFields() {
+    private void generateNumberFields() {
         for (Field field : fields) { // for each field
             if (field.getType().equals(FieldType.BOMB))
                 continue;
@@ -108,7 +108,7 @@ public class Minesweeper {
         return 0;
     }
 
-    private boolean checkWin() {
+    private void checkWin() {
         int matchingFields = 0;
         for (Field field : fields) {
             if (field.getType().equals(FieldType.BOMB) && field.isMarked())
@@ -116,7 +116,6 @@ public class Minesweeper {
         }
         if (matchingFields == bombs)
             win();
-        return false;
     }
 
     private void win() {
@@ -190,7 +189,7 @@ public class Minesweeper {
     private void fieldMouseEvents(Field f) {
         f.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent me) {
+            public void mousePressed(MouseEvent me) {
 
                 // *** RIGHT CLICK ***
 

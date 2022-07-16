@@ -16,12 +16,6 @@ public class ResetButton extends JButton {
     public void playLoseAnimation() {
         setIcon(new ImageIcon("images/icons/rb_lose.gif"));
         //TODO loseAnimation
-//        Timer timer = new Timer(3400, new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                lopl;
-//            }
-//        })
+
     }
 }
