@@ -9,8 +9,8 @@ import java.awt.*;
 @Getter
 
 public class Field extends JButton {
-    private int x_cord;
-    private int y_cord;
+    private final int x_cord;
+    private final int y_cord;
     private boolean hidden = true;
     private boolean marked = false;
     private FieldType type = FieldType.EMPTY;
@@ -37,6 +37,13 @@ public class Field extends JButton {
         path += type.toString().toLowerCase();
         path += ".png";
         setIcon(new ImageIcon(path));
+    }
+
+    public void reset() {
+        hidden = true;
+        marked = false;
+        type = FieldType.EMPTY;
+        setIcon(new ImageIcon("images/icons/hidden.png"));
     }
 
 }

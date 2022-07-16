@@ -29,10 +29,10 @@ public class Minesweeper {
         generateFields(8);
         generateBombs(10);
         generateNumberFields();
+        resetButton.addActionListener(e -> restart());
         frame.pack();
         frame.setVisible(true);
     }
-
 
     public void generateFields(int size) {
         for(int y=1; y<=size; y++) {
@@ -121,17 +121,24 @@ public class Minesweeper {
         for (Field field : fields) {
             field.display();
         }
+        resetButton.setIcon(new ImageIcon("images/icons/rb_lose.png"));
     }
 
     //TODO add restart function
     private void restart() {
-
+        fields.forEach(Field::reset);
+        generateBombs(bombs);
+        generateNumberFields();
+        resetButton.setIcon(new ImageIcon("images/icons/rb.png"));
+        mineCounter.setText("010");
     }
 
     private void fieldMouseEvents(Field f) {
         f.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
+
+
                 if (SwingUtilities.isRightMouseButton(me)) { // *** RIGHT CLICK ***
                     if (!f.isMarked() && mineCounter.getText().equals("000"))
                         return;
@@ -147,8 +154,9 @@ public class Minesweeper {
                     //TODO add win case
                     if (checkWin()) { // if WIN
                     }
-
                 }
+
+
                 else if (SwingUtilities.isLeftMouseButton(me)) { // *** LEFT CLICK ***
                     if (!f.isHidden()) // if field is already shown
                         return;
@@ -156,10 +164,10 @@ public class Minesweeper {
                         f.display();
                     else if (f.getType().equals(FieldType.BOMB)) { // if you clicked on bomb
                         f.setType(FieldType.EXPLODED);
-                        //TODO add lose case
                         gameOver();
                     }
                 }
+
             }
         });
     }
