@@ -40,6 +40,7 @@ public class Minesweeper {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
+                f.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
                 fieldMouseEvents(f);
                 frame.addComponentsToPanels(f);
                 fields.add(f);
@@ -129,7 +130,7 @@ public class Minesweeper {
         fields.forEach(Field::reset);
         generateBombs(bombs);
         generateNumberFields();
-        resetButton.setIcon(new ImageIcon("images/icons/rb.png"));
+        resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
         //TODO test
         timer.reset();
