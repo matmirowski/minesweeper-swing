@@ -21,10 +21,9 @@ public class Minesweeper {
 
     public Minesweeper() {
         frame = new Frame();
-        init();
     }
 
-    private void init() {
+    public void init() {
         frame.generateComponents();
         frame.addComponentsToPanels(mineCounter, resetButton, timerButton);
         generateFields(8);
@@ -122,9 +121,7 @@ public class Minesweeper {
         timerButton.stop();
         int score = Integer.parseInt(timerButton.getText());
         String[] options = {"Yes","No"};
-//        int choice = JOptionPane.showConfirmDialog(null, "You've won! Your score is: " + score
-//                        + " seconds. Do you want to play again?"
-//                        ,"Congratulations!",JOptionPane.YES_NO_OPTION);
+
         int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
                 + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
                 , new ImageIcon("images/icons/icon.png"), options, null);
@@ -148,7 +145,8 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        timerButton.reset();
+        timerButton.setText("000");
+        timerButton.stop();
     }
 
     private void emptyFieldsDisplay(int x, int y) {

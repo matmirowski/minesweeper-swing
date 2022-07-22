@@ -1,34 +1,35 @@
 package pl.mateusz.buttons;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TimerButton extends AbstractTopButton{
-    private Timer timer;
+    private static Timer timer;
+
     public TimerButton() {
         initialConfigure(this,"000");
+
     }
 
     public void start() {
-        timer = new Timer(1000, e -> {
-            int value = Integer.parseInt(getText());
-            if (value==999)
-                return;
-            value++;
-            String newText = String.format("%03d",value);
-            setText(newText);
-        });
-        timer.start();
-    }
-
-    public void reset() {
-        timer.stop();
-        setText("000");
+        this.setText("000");
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                int time = Integer.parseInt(getText());
+                time++;
+                String newTime = String.format("%03d",time);
+                setText(newTime);
+            }
+        };
+        timer = new Timer();
+        timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
     public void stop() {
-        timer.stop();
+        timer.cancel();
+        timer = new Timer();
     }
+
 
 }
