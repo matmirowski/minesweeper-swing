@@ -1,7 +1,7 @@
 package pl.mateusz;
 
 import pl.mateusz.buttons.*;
-import pl.mateusz.buttons.TimerButton;
+import pl.mateusz.buttons.Stopwatch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class Minesweeper {
     private final Frame frame;
     private final ArrayList<Field> fields = new ArrayList<>();
     private final ResetButton resetButton = new ResetButton();
-    private final TimerButton timerButton = new TimerButton();
+    private final Stopwatch stopwatch = new Stopwatch();
     private final MineCounter mineCounter = new MineCounter();
     private int bombs = 0;
 
@@ -25,7 +25,7 @@ public class Minesweeper {
 
     public void init() {
         frame.generateComponents();
-        frame.addComponentsToPanels(mineCounter, resetButton, timerButton);
+        frame.addComponentsToPanels(mineCounter, resetButton, stopwatch);
         generateFields(8);
         generateBombs(10);
         generateNumberFields();
@@ -118,8 +118,8 @@ public class Minesweeper {
     }
 
     private void win() {
-        timerButton.stop();
-        int score = Integer.parseInt(timerButton.getText());
+        stopwatch.stop();
+        int score = Integer.parseInt(stopwatch.getText());
         String[] options = {"Yes","No"};
 
         int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
@@ -136,7 +136,7 @@ public class Minesweeper {
             field.display();
         }
         resetButton.playLoseAnimation();
-        timerButton.stop();
+        stopwatch.stop();
     }
 
     private void restart() {
@@ -145,8 +145,8 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        timerButton.stop();
-        timerButton.reset();
+        stopwatch.stop();
+        stopwatch.reset();
     }
 
     private void emptyFieldsDisplay(int x, int y) {
@@ -210,8 +210,8 @@ public class Minesweeper {
                 // *** LEFT CLICK ***
 
                 else if (SwingUtilities.isLeftMouseButton(me)) {
-                    if (timerButton.getText().equals("000"))
-                        timerButton.start();
+                    if (stopwatch.getText().equals("000"))
+                        stopwatch.start();
 
                     if (!f.isHidden()) // if field is already shown
                         return;
