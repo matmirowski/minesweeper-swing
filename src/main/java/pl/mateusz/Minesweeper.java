@@ -145,8 +145,8 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        timerButton.setText("000");
         timerButton.stop();
+        timerButton.reset();
     }
 
     private void emptyFieldsDisplay(int x, int y) {
