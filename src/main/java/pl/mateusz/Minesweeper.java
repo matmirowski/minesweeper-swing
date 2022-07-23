@@ -121,7 +121,7 @@ public class Minesweeper {
         int score = Integer.parseInt(stopwatch.getText());
         String[] options = {"Yes","No"};
 
-        stopwatch.stop();
+        stopwatch.stopCounting();
 
         resetButton.playWinAnimation();
 
@@ -139,7 +139,7 @@ public class Minesweeper {
             field.display();
         }
         resetButton.playLoseAnimation();
-        stopwatch.stop();
+        stopwatch.stopCounting();
     }
 
     private void restart() {
@@ -150,8 +150,8 @@ public class Minesweeper {
         resetButton.stopWinAnimation();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
-        stopwatch.stop();
-        stopwatch.reset();
+        stopwatch.stopCounting();
+        stopwatch.resetCounterValue();
     }
 
     private void emptyFieldsDisplay(int x, int y) {
@@ -216,7 +216,7 @@ public class Minesweeper {
 
                 else if (SwingUtilities.isLeftMouseButton(me)) {
                     if (stopwatch.getText().equals("000"))
-                        stopwatch.start();
+                        stopwatch.startCounting();
 
                     if (!f.isHidden()) // if field is already shown
                         return;

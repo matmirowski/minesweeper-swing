@@ -3,7 +3,7 @@ package pl.mateusz.buttons;
 import javax.swing.Timer;
 
 public class Stopwatch extends AbstractTopButton{
-    private static Timer timer;
+    private static Timer counter;
 
     public Stopwatch() {
 
@@ -19,7 +19,7 @@ public class Stopwatch extends AbstractTopButton{
          * Icreasing counter value by 1
          */
 
-        timer = new Timer(1000, e -> {
+        counter = new Timer(1000, e -> {
             int time = Integer.parseInt(getText());
 
             /* Text in a counter can't surpass 999 */
@@ -31,20 +31,17 @@ public class Stopwatch extends AbstractTopButton{
             setText(newTime);
         });
     }
-
-    /* Starting Timer */
-    public void start() {
+    
+    public void startCounting() {
         this.setText("000");
-        timer.start();
+        counter.start();
     }
 
-    /* Stopping timer */
-    public void stop() {
-        timer.stop();
+    public void stopCounting() {
+        counter.stop();
     }
 
-    /* Setting counter value to 000 */
-    public void reset() {
+    public void resetCounterValue() {
         this.setText("000");
     }
 
