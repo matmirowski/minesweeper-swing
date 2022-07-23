@@ -23,4 +23,8 @@ public class ResetButton extends JButton {
         this.setIcon(new ImageIcon("images/icons/rb_lose.gif"));
         timer.start();
     }
+
+    public void stopLoseAnimation() {
+        timer.stop();
+    }
 }

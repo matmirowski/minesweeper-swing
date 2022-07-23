@@ -143,6 +143,7 @@ public class Minesweeper {
         fields.forEach(Field::reset);
         generateBombs(bombs);
         generateNumberFields();
+        resetButton.stopLoseAnimation();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
         stopwatch.stop();
