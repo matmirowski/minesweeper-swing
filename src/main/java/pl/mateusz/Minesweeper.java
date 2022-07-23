@@ -118,9 +118,12 @@ public class Minesweeper {
     }
 
     private void win() {
-        stopwatch.stop();
         int score = Integer.parseInt(stopwatch.getText());
         String[] options = {"Yes","No"};
+
+        stopwatch.stop();
+
+        resetButton.playWinAnimation();
 
         int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
                 + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
@@ -144,6 +147,7 @@ public class Minesweeper {
         generateBombs(bombs);
         generateNumberFields();
         resetButton.stopLoseAnimation();
+        resetButton.stopWinAnimation();
         resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
         mineCounter.setText("010");
         stopwatch.stop();

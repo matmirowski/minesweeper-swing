@@ -32,16 +32,19 @@ public class Stopwatch extends AbstractTopButton{
         });
     }
 
-    public void start() {           /* Starting Timer */
+    /* Starting Timer */
+    public void start() {
         this.setText("000");
         timer.start();
     }
 
-    public void stop() {            /* Stopping timer */
+    /* Stopping timer */
+    public void stop() {
         timer.stop();
     }
 
-    public void reset() {           /* Setting counter value to 000 */
+    /* Setting counter value to 000 */
+    public void reset() {
         this.setText("000");
     }
 

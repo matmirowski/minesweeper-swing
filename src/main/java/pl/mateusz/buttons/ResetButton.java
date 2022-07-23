@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ResetButton extends JButton {
-
-    private static Timer timer;
+    private static Timer loseAnimationTimer;
+    private static Timer winAnimationTimer;
 
     public ResetButton() { //resetbutton initial configuration
         this.setPreferredSize(new Dimension(40,40));
@@ -13,18 +13,32 @@ public class ResetButton extends JButton {
         this.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         this.setContentAreaFilled(false);
 
-        timer = new Timer(3300, e -> {
+        loseAnimationTimer = new Timer(3300, e -> {
             this.setIcon(new ImageIcon("images/icons/rb_lose_static.png"));
         });
-        timer.setRepeats(false);
+        loseAnimationTimer.setRepeats(false);
+
+        winAnimationTimer = new Timer(2100, e -> {
+            this.setIcon(new ImageIcon("images/icons/rb_win_static.png"));
+        });
+        winAnimationTimer.setRepeats(false);
     }
 
     public void playLoseAnimation() {
         this.setIcon(new ImageIcon("images/icons/rb_lose.gif"));
-        timer.start();
+        loseAnimationTimer.start();
     }
 
     public void stopLoseAnimation() {
-        timer.stop();
+        loseAnimationTimer.stop();
+    }
+
+    public void playWinAnimation() {
+        this.setIcon(new ImageIcon("images/icons/rb_win.gif"));
+        winAnimationTimer.start();
+    }
+
+    public void stopWinAnimation() {
+        winAnimationTimer.stop();
     }
 }
