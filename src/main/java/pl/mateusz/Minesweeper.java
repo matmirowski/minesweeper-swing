@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -120,14 +121,20 @@ public class Minesweeper {
     private void win() {
         int score = Integer.parseInt(stopwatch.getText());
         String[] options = {"Yes","No"};
+        ImageIcon winOptionPaneIcon = null;
 
         stopwatch.stopCounting();
 
         resetButton.playWinAnimation();
 
+        URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon.png");
+        if (winOptionPaneIconURL != null)
+            winOptionPaneIcon = new ImageIcon(winOptionPaneIconURL);
+
         int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
                 + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
-                , new ImageIcon("images/icons/icon.png"), options, null);
+                , winOptionPaneIcon, options, null);
+
         if (choice==0)
             restart();
         else
@@ -148,7 +155,7 @@ public class Minesweeper {
         generateNumberFields();
         resetButton.stopLoseAnimation();
         resetButton.stopWinAnimation();
-        resetButton.setIcon(new ImageIcon("images/icons/rb.gif"));
+        resetButton.playIdleAnimation();
         mineCounter.setText("010");
         stopwatch.stopCounting();
         stopwatch.resetCounterValue();

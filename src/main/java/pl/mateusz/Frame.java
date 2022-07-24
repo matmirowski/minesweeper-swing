@@ -8,6 +8,7 @@ import pl.mateusz.buttons.Stopwatch;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class Frame extends JFrame {
     @Getter
@@ -22,8 +23,12 @@ public class Frame extends JFrame {
         this.setLayout(new BorderLayout(5,0));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
 
-        ImageIcon img = new ImageIcon("images/icons/icon.png");
-        this.setIconImage(img.getImage());
+        ImageIcon frameIcon;
+        URL iconURL = getClass().getResource("/images/icons/icon.png");
+        if (iconURL != null) {
+            frameIcon = new ImageIcon(iconURL);
+            this.setIconImage(frameIcon.getImage());
+        }
     }
 
     public void generateComponents() {

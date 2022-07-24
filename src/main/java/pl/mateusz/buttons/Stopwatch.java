@@ -31,7 +31,7 @@ public class Stopwatch extends AbstractTopButton{
             setText(newTime);
         });
     }
-    
+
     public void startCounting() {
         this.setText("000");
         counter.start();
