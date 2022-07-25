@@ -1,6 +1,10 @@
 package pl.mateusz.buttons;
 
 import javax.swing.Timer;
+import java.awt.*;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Stopwatch extends AbstractTopButton{
     private static Timer counter;

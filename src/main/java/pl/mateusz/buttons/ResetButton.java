@@ -85,7 +85,7 @@ public class ResetButton extends JButton {
         if (winGIFURL != null)
             icons.put("winGIF",new ImageIcon(winGIFURL));
 
-        URL winPNGURL = getClass().getResource("/images/icons/rb_win_static.gif");
+        URL winPNGURL = getClass().getResource("/images/icons/rb_win_static.png");
         if (winPNGURL != null)
             icons.put("winPNG",new ImageIcon(winPNGURL));
 
