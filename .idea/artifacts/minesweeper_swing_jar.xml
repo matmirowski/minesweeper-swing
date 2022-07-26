@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="minesweeper-swing:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/minesweeper_swing_jar</output-path>
+    <root id="archive" name="minesweeper-swing.jar">
+      <element id="module-output" name="minesweeper-swing" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

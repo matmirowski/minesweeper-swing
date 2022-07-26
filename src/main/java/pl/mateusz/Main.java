@@ -9,5 +9,6 @@ public class Main {
         //TODO best results (serialization or json?, maybe database)
         //TODO menu bar
         //TODO custom sizes of a map (and bombs)
+        //TODO sounds?
     }
 }
