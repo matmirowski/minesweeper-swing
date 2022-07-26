@@ -45,6 +45,9 @@ public class Stopwatch extends AbstractTopButton{
         counter.stop();
     }
 
+    /**
+     * Sets counter value to "000"
+     */
     public void resetCounterValue() {
         this.setText("000");
     }

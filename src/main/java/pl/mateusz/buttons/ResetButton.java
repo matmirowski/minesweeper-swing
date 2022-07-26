@@ -25,7 +25,6 @@ public class ResetButton extends JButton {
          * Configuring resetButton:
          * - Setting borders, size, loading icons
          */
-
         loadIcons();
         playIdleAnimation();
         this.setPreferredSize(new Dimension(40,40));
@@ -34,11 +33,10 @@ public class ResetButton extends JButton {
 
         /*
          * loseAnimationTimer and winAnimationTimer:
-         *  - Changing icon to static .png image after gif was played
-         *  - delay - duration of gif (gifs are looped)
-         *  - all Timers are played only once (setRepeats(false)
+         * - Changing icon to static .png image after gif was played
+         * - delay - duration of gif (gifs are looped)
+         * - all Timers are played only once (setRepeats(false)
          */
-
         loseAnimationTimer = new Timer(3300, e -> {
             this.setIcon(icons.get("losePNG"));
         });

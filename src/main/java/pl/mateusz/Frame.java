@@ -12,17 +12,22 @@ import java.net.URL;
 
 public class Frame extends JFrame {
     @Getter
+    // Contains MineCounter, Stopwatch and ResetButton
     private JPanel topPanel;
     @Getter
+    // Contains game fields
     private JPanel gamePanel;
 
-    public Frame() { //frame configuration
+    public Frame() {
+
+        // Frame initial configuration (title, borders...)
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(new BorderLayout(5,0));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
 
+        // Loading icon
         ImageIcon frameIcon;
         URL iconURL = getClass().getResource("/images/icons/icon.png");
         if (iconURL != null) {
@@ -31,7 +36,7 @@ public class Frame extends JFrame {
         }
     }
 
-    public void generateComponents() {
+    public void generatePanels() {
         topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,20,3));
         topPanel.setPreferredSize(new Dimension(100,50));
         topPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -42,7 +47,6 @@ public class Frame extends JFrame {
 
         this.add(topPanel,BorderLayout.NORTH);
         this.add(gamePanel,BorderLayout.CENTER);
-
     }
 
     public void addComponentsToPanels(MineCounter mc, ResetButton rb, Stopwatch tm) {
