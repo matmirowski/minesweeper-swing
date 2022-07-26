@@ -6,8 +6,7 @@ public class Main {
         Minesweeper minesweeper = new Minesweeper();
         minesweeper.init();
 
-        //TODO spinning icon when won the game & information on your result
-        //TODO best results (serialization or json?)
+        //TODO best results (serialization or json?, maybe database)
         //TODO menu bar
         //TODO custom sizes of a map (and bombs)
     }

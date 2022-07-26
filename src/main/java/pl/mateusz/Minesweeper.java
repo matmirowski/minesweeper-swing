@@ -160,7 +160,7 @@ public class Minesweeper {
          * Player can either play again (choice=0) or exit (choice=1)
          */
 
-        URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon.png");
+        URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon_spinning.gif");
         if (winOptionPaneIconURL != null)
             winOptionPaneIcon = new ImageIcon(winOptionPaneIconURL);
 
