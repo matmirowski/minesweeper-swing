@@ -267,20 +267,26 @@ public class Minesweeper {
                 // *** LEFT CLICK ***
 
                 else if (SwingUtilities.isLeftMouseButton(me)) {
+
+                    // if we didnt start timer yet we start it
                     if (stopwatch.getText().equals("000"))
                         stopwatch.startCounting();
 
-                    if (!f.isHidden()) // if field is already shown
+                    // if field is already shown or is marked we don't do anything
+                    if (!f.isHidden() || f.isMarked())
                         return;
 
-                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB) && // if field is a numeric field
+                    // if field is a numeric field we display it
+                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB) &&
                             !f.getType().equals(FieldType.EMPTY))
                         f.display();
 
-                    else if (!f.isMarked() && f.getType().equals(FieldType.EMPTY)) // if field is empty
+                    // if field is empty we start displaying fields nearby
+                    else if (!f.isMarked() && f.getType().equals(FieldType.EMPTY))
                         emptyFieldsDisplay(f.getX_cord(), f.getY_cord());
 
-                    else if (f.getType().equals(FieldType.BOMB)) { // if you clicked on bomb
+                    // if player clicked on the bomb, it's game over
+                    else if (f.getType().equals(FieldType.BOMB)) {
                         f.setType(FieldType.EXPLODED);
                         lose();
                     }
