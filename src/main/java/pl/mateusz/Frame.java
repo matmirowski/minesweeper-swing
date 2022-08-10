@@ -27,6 +27,13 @@ public class Frame extends JFrame {
         this.setLayout(new BorderLayout(5,0));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
 
+        // Adapts style from current system (makes fonts and buttons modern)
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Loading icon
         ImageIcon frameIcon;
         URL iconURL = getClass().getResource("/images/icons/icon.png");

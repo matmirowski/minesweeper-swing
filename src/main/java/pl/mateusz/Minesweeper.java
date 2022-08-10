@@ -238,61 +238,81 @@ public class Minesweeper {
     }
 
     /**
-     * Method handling left and right clicks on a field.
-     * @param f clicked field
+     * Handles left and right clicks on a field.
+     * Runs leftClickOnField or rightClickOnField method.
+     * @param field clicked field
      */
-    private void fieldMouseEvents(Field f) {
-        f.addMouseListener(new MouseAdapter() {
+    private void fieldMouseEvents(Field field) {
+        field.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
 
                 // *** RIGHT CLICK ***
-
                 if (SwingUtilities.isRightMouseButton(me)) {
-                    if ((!f.isMarked() && mineCounter.getText().equals("000"))) // if we have no more mines
-                        return;
-                    if (!f.isHidden()) // if field is already shown
-                        return;
-                    else if (f.isMarked()) { // if field is already marked we unmark it
-                        f.unmark();
-                        mineCounter.increase();
-                    }
-                    else { // if field isn't marked we can mark it
-                        f.mark();
-                        mineCounter.decrease();
-                    }
-                    checkWin();
+                    rightClickOnField(field);
                 }
 
                 // *** LEFT CLICK ***
-
-                else if (SwingUtilities.isLeftMouseButton(me)) {
-
-                    // if we didnt start timer yet we start it
-                    if (stopwatch.getText().equals("000"))
-                        stopwatch.startCounting();
-
-                    // if field is already shown or is marked we don't do anything
-                    if (!f.isHidden() || f.isMarked())
-                        return;
-
-                    // if field is a numeric field we display it
-                    else if (!f.isMarked() && !f.getType().equals(FieldType.BOMB) &&
-                            !f.getType().equals(FieldType.EMPTY))
-                        f.display();
-
-                    // if field is empty we start displaying fields nearby
-                    else if (!f.isMarked() && f.getType().equals(FieldType.EMPTY))
-                        emptyFieldsDisplay(f.getX_cord(), f.getY_cord());
-
-                    // if player clicked on the bomb, it's game over
-                    else if (f.getType().equals(FieldType.BOMB)) {
-                        f.setType(FieldType.EXPLODED);
-                        lose();
-                    }
-                }
+                else if (SwingUtilities.isLeftMouseButton(me))
+                    leftClickOnField(field);
             }
         });
+    }
+
+    /**
+     * Handles left click, sets field status.
+     * @param field clicked field
+     */
+    private void leftClickOnField(Field field) {
+        // if we didnt start the timer yet, we start it
+        if (stopwatch.getText().equals("000"))
+            stopwatch.startCounting();
+
+        // if field is already shown or is marked we don't do anything
+        if (!field.isHidden() || field.isMarked())
+            return;
+
+        // if field is a numeric field we display it
+        else if (!field.isMarked() && !field.getType().equals(FieldType.BOMB) &&
+                !field.getType().equals(FieldType.EMPTY))
+            field.display();
+
+        // if field is empty we start displaying fields nearby
+        else if (!field.isMarked() && field.getType().equals(FieldType.EMPTY))
+            emptyFieldsDisplay(field.getX_cord(), field.getY_cord());
+
+        // if player clicked on the bomb, it's game over
+        else if (field.getType().equals(FieldType.BOMB)) {
+            field.setType(FieldType.EXPLODED);
+            lose();
+        }
+    }
+
+    /**
+     *
+     * @param field clicked field
+     */
+    private void rightClickOnField(Field field) {
+        // if we have no more mines
+        if ((!field.isMarked() && mineCounter.getText().equals("000")))
+            return;
+
+        // if field is already displayed
+        if (!field.isHidden())
+            return;
+
+        // if field is already marked we unmark it
+        else if (field.isMarked()) {
+            field.unmark();
+            mineCounter.increase();
+        }
+
+        // if field isn't marked we can mark it
+        else {
+            field.mark();
+            mineCounter.decrease();
+            checkWin();
+        }
     }
 
 }

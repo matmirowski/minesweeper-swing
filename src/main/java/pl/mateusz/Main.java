@@ -10,5 +10,6 @@ public class Main {
         //TODO menu bar
         //TODO custom sizes of a map (and bombs)
         //TODO sounds?
+        //TODO finish left/rightclick
     }
 }
