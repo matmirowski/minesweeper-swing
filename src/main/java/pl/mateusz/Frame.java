@@ -29,7 +29,7 @@ public class Frame extends JFrame {
 
         // Initializing menu bar
         MyMenuBar menuBar = new MyMenuBar();
-        //this.setJMenuBar(menuBar);
+        this.setJMenuBar(menuBar);
 
         // Adapts style from current system (makes fonts and buttons modern)
         try {
