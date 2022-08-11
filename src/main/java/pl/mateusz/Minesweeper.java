@@ -25,6 +25,7 @@ public class Minesweeper {
     /** Ammount of bombs "planted" in current game */
     private int bombs = 0;
 
+
     /** Constructor, creating a JFrame */
     public Minesweeper() {
         frame = new Frame();

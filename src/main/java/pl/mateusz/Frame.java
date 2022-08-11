@@ -27,6 +27,10 @@ public class Frame extends JFrame {
         this.setLayout(new BorderLayout(5,0));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
 
+        // Initializing menu bar
+        MyMenuBar menuBar = new MyMenuBar();
+        this.setJMenuBar(menuBar);
+
         // Adapts style from current system (makes fonts and buttons modern)
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
