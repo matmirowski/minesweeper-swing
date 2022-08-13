@@ -22,7 +22,7 @@ public class Minesweeper {
     private final Stopwatch stopwatch = new Stopwatch();
     /** Displays how many marks does player have left */
     private final MineCounter mineCounter = new MineCounter();
-    /** Ammount of bombs "planted" in current game */
+    /** Ammount of bombs "planted" in the current game */
     private int bombs = 0;
 
 
@@ -40,7 +40,6 @@ public class Minesweeper {
         generateBombs(10);
         assignNumbersToFields();
         resetButton.addActionListener(e -> restart());
-        frame.pack();
         frame.setVisible(true);
     }
 
@@ -56,10 +55,20 @@ public class Minesweeper {
                 f.setFocusable(false);
                 f.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
                 fieldMouseEvents(f);
+                frame.getGamePanel().setLayout(new GridLayout(size,size,0,0));
                 frame.addComponentsToPanels(f);
                 fields.add(f);
+                frame.pack();
             }
         }
+    }
+
+    /**
+     * Deletes all fields from gamePanel and fields Arraylist. Used when changing difficulty level
+     */
+    private void deleteAllFields() {
+        fields.clear();
+        frame.getGamePanel().removeAll();
     }
 
     /**
@@ -82,6 +91,7 @@ public class Minesweeper {
             } while (occupied);
         }
         bombs = quantity;
+        mineCounter.setValue(quantity);
     }
 
     /**
@@ -198,7 +208,7 @@ public class Minesweeper {
         resetButton.stopLoseAnimation();
         resetButton.stopWinAnimation();
         resetButton.playIdleAnimation();
-        mineCounter.setText("010");
+        mineCounter.setValue(bombs);
         stopwatch.stopCounting();
         stopwatch.resetCounterValue();
     }
@@ -291,7 +301,7 @@ public class Minesweeper {
     }
 
     /**
-     *
+     * Handles right click, sets field status.
      * @param field clicked field
      */
     private void rightClickOnField(Field field) {
@@ -317,50 +327,81 @@ public class Minesweeper {
         }
     }
 
+    /**
+     * Assigns tasks to items in MenuBar.
+     */
     private void configureMenuBarActions() {
         MyMenuBar menuBar = (MyMenuBar) frame.getJMenuBar();
         // You need to remember that when ActionListener is triggered, Selected status is already changed
 
+        // New
         menuBar.getNewItem().addActionListener(e -> restart());
 
+        // Beginner
         menuBar.getBeginnerItem().addActionListener(e -> {
-            if (menuBar.getBeginnerItem().isSelected()) {
-                menuBar.getIntermediateItem().setSelected(false);
-                menuBar.getExpertItem().setSelected(false);
-            }
+            if (menuBar.getBeginnerItem().isSelected())
+                changeDifficulty(Difficulty.BEGINNER);
             else
                 menuBar.getBeginnerItem().setSelected(true);
         });
 
+        // Intermediate
         menuBar.getIntermediateItem().addActionListener(e -> {
-            if (menuBar.getIntermediateItem().isSelected()) {
-                menuBar.getBeginnerItem().setSelected(false);
-                menuBar.getExpertItem().setSelected(false);
-            }
+            if (menuBar.getIntermediateItem().isSelected())
+                changeDifficulty(Difficulty.INTERMEDIATE);
             else
                 menuBar.getIntermediateItem().setSelected(true);
         });
 
+        // Expert
         menuBar.getExpertItem().addActionListener(e -> {
-            if (menuBar.getExpertItem().isSelected()) {
-                menuBar.getBeginnerItem().setSelected(false);
-                menuBar.getIntermediateItem().setSelected(false);
-            }
+            if (menuBar.getExpertItem().isSelected())
+                changeDifficulty(Difficulty.EXPERT);
             else
                 menuBar.getExpertItem().setSelected(true);
         });
 
+        // Custom
         menuBar.getCustomItem().addActionListener(e -> {
 
         });
 
+        // Best Times
         menuBar.getBestTimesItem().addActionListener(e -> {
 
         });
 
-        menuBar.getExitItem().addActionListener(e -> {
-            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-        });
+        // Exit
+        menuBar.getExitItem().addActionListener(e ->
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING))
+        );
+    }
+
+    /**
+     * Changes difficulty of the game.
+     * @param difficulty new level of difficulty
+     */
+    private void changeDifficulty(Difficulty difficulty) {
+        MyMenuBar menuBar = (MyMenuBar) frame.getJMenuBar();
+        deleteAllFields();
+        switch (difficulty) {
+            case BEGINNER -> {
+                menuBar.getIntermediateItem().setSelected(false);
+                menuBar.getExpertItem().setSelected(false);
+            }
+            case INTERMEDIATE -> {
+                menuBar.getBeginnerItem().setSelected(false);
+                menuBar.getExpertItem().setSelected(false);
+            }
+            case EXPERT -> {
+                menuBar.getBeginnerItem().setSelected(false);
+                menuBar.getIntermediateItem().setSelected(false);
+            }
+        }
+        generateFields(difficulty.size);
+        generateBombs(difficulty.bombs);
+        assignNumbersToFields();
+        restart();
     }
 
 }

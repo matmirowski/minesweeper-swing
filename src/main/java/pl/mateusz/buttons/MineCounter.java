@@ -26,4 +26,9 @@ public class MineCounter extends AbstractTopButton {
         String newText = String.format("%03d",value);
         setText(newText);
     }
+
+    public void setValue(int bombQuantity) {
+        String newText = String.format("%03d",bombQuantity);
+        setText(newText);
+    }
 }
