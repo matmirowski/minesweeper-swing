@@ -1,24 +1,24 @@
 package pl.mateusz;
 
+import lombok.Getter;
+
 import javax.swing.*;
-
+import java.awt.*;
+@Getter
 public class MyMenuBar extends JMenuBar {
-
+    private final JMenuItem newItem = new JMenuItem("New");
+    private final JCheckBoxMenuItem beginnerItem = new JCheckBoxMenuItem("Beginner");
+    private final JCheckBoxMenuItem intermediateItem = new JCheckBoxMenuItem("Intermediate");
+    private final JCheckBoxMenuItem expertItem = new JCheckBoxMenuItem("Expert");
+    private final JMenuItem customItem = new JMenuItem("Custom...");
+    private final JMenuItem bestTimesItem = new JMenuItem("Best Times...");
+    private final JMenuItem exitItem = new JMenuItem("Exit");
     MyMenuBar() {
         JMenu gameMenu = new JMenu("Game");
         JMenu helpMenu = new JMenu("Help");
 
         this.add(gameMenu);
         this.add(helpMenu);
-
-        JMenuItem newItem = new JMenuItem("New");
-        JMenuItem beginnerItem = new JMenuItem("Beginner");
-        beginnerItem.setEnabled(true);
-        JMenuItem intermediateItem = new JMenuItem("Intermediate");
-        JMenuItem expertItem = new JMenuItem("Expert");
-        JMenuItem customItem = new JMenuItem("Custom...");
-        JMenuItem bestTimesItem = new JMenuItem("Best Times...");
-        JMenuItem exitItem = new JMenuItem("Exit");
 
         gameMenu.add(newItem);
         gameMenu.addSeparator();
@@ -31,13 +31,10 @@ public class MyMenuBar extends JMenuBar {
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
 
+        beginnerItem.setSelected(true);
+
         JMenuItem aboutItem = new JMenuItem("About Minesweeper");
         helpMenu.add(aboutItem);
 
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

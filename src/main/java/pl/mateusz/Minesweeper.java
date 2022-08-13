@@ -26,9 +26,10 @@ public class Minesweeper {
     private int bombs = 0;
 
 
-    /** Constructor, creating a JFrame */
+    /** Constructor, creating a JFrame and configuring MenuBar ActionListeners */
     public Minesweeper() {
         frame = new Frame();
+        configureMenuBarActions();
     }
 
     /** Configuring and generating all game components */
@@ -314,6 +315,52 @@ public class Minesweeper {
             mineCounter.decrease();
             checkWin();
         }
+    }
+
+    private void configureMenuBarActions() {
+        MyMenuBar menuBar = (MyMenuBar) frame.getJMenuBar();
+        // You need to remember that when ActionListener is triggered, Selected status is already changed
+
+        menuBar.getNewItem().addActionListener(e -> restart());
+
+        menuBar.getBeginnerItem().addActionListener(e -> {
+            if (menuBar.getBeginnerItem().isSelected()) {
+                menuBar.getIntermediateItem().setSelected(false);
+                menuBar.getExpertItem().setSelected(false);
+            }
+            else
+                menuBar.getBeginnerItem().setSelected(true);
+        });
+
+        menuBar.getIntermediateItem().addActionListener(e -> {
+            if (menuBar.getIntermediateItem().isSelected()) {
+                menuBar.getBeginnerItem().setSelected(false);
+                menuBar.getExpertItem().setSelected(false);
+            }
+            else
+                menuBar.getIntermediateItem().setSelected(true);
+        });
+
+        menuBar.getExpertItem().addActionListener(e -> {
+            if (menuBar.getExpertItem().isSelected()) {
+                menuBar.getBeginnerItem().setSelected(false);
+                menuBar.getIntermediateItem().setSelected(false);
+            }
+            else
+                menuBar.getExpertItem().setSelected(true);
+        });
+
+        menuBar.getCustomItem().addActionListener(e -> {
+
+        });
+
+        menuBar.getBestTimesItem().addActionListener(e -> {
+
+        });
+
+        menuBar.getExitItem().addActionListener(e -> {
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        });
     }
 
 }

@@ -20,23 +20,20 @@ public class Frame extends JFrame {
 
     public Frame() {
 
-        // Frame initial configuration (title, borders...)
-        this.setTitle("Minesweeper");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setLayout(new BorderLayout(5,0));
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
-
-        // Initializing menu bar
-        MyMenuBar menuBar = new MyMenuBar();
-        this.setJMenuBar(menuBar);
-
         // Adapts style from current system (makes fonts and buttons modern)
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Frame initial configuration (title, borders, menubar)
+        this.setTitle("Minesweeper");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setLayout(new BorderLayout(5,0));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
+        this.setJMenuBar(new MyMenuBar());
 
         // Loading icon
         ImageIcon frameIcon;
