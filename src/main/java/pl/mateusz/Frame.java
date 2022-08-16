@@ -34,6 +34,7 @@ public class Frame extends JFrame {
         this.setLayout(new BorderLayout(5,0));
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
         this.setJMenuBar(new MyMenuBar());
+        this.setLocationRelativeTo(null);
 
         // Loading icon
         ImageIcon frameIcon;

@@ -15,6 +15,8 @@ import java.util.Random;
 public class Minesweeper {
     private final Frame frame;
     /** ArrayList containing all game fields */
+
+    private final MyMenuBar menuBar;
     private final ArrayList<Field> fields = new ArrayList<>();
     /** Button playing emoji animations, resets game when clicked */
     private final ResetButton resetButton = new ResetButton();
@@ -23,12 +25,14 @@ public class Minesweeper {
     /** Displays how many marks does player have left */
     private final MineCounter mineCounter = new MineCounter();
     /** Ammount of bombs "planted" in the current game */
-    private int bombs = 0;
+    private int mines;
+    private int size;
 
 
     /** Constructor, creating a JFrame and configuring MenuBar ActionListeners */
     public Minesweeper() {
         frame = new Frame();
+        menuBar = (MyMenuBar) frame.getJMenuBar();
         configureMenuBarActions();
     }
 
@@ -59,6 +63,7 @@ public class Minesweeper {
                 frame.addComponentsToPanels(f);
                 fields.add(f);
                 frame.pack();
+                this.size = size;
             }
         }
     }
@@ -90,7 +95,7 @@ public class Minesweeper {
                 }
             } while (occupied);
         }
-        bombs = quantity;
+        mines = quantity;
         mineCounter.setValue(quantity);
     }
 
@@ -153,7 +158,7 @@ public class Minesweeper {
             if (field.getType().equals(FieldType.BOMB) && field.isMarked())
                 matchingFields++;
         }
-        if (matchingFields == bombs)
+        if (matchingFields == mines)
             win();
     }
 
@@ -203,12 +208,12 @@ public class Minesweeper {
      */
     private void restart() {
         fields.forEach(Field::reset);
-        generateBombs(bombs);
+        generateBombs(mines);
         assignNumbersToFields();
         resetButton.stopLoseAnimation();
         resetButton.stopWinAnimation();
         resetButton.playIdleAnimation();
-        mineCounter.setValue(bombs);
+        mineCounter.setValue(mines);
         stopwatch.stopCounting();
         stopwatch.resetCounterValue();
     }
@@ -331,7 +336,6 @@ public class Minesweeper {
      * Assigns tasks to items in MenuBar.
      */
     private void configureMenuBarActions() {
-        MyMenuBar menuBar = (MyMenuBar) frame.getJMenuBar();
         // You need to remember that when ActionListener is triggered, Selected status is already changed
 
         // New
@@ -340,7 +344,7 @@ public class Minesweeper {
         // Beginner
         menuBar.getBeginnerItem().addActionListener(e -> {
             if (menuBar.getBeginnerItem().isSelected())
-                changeDifficulty(Difficulty.BEGINNER);
+                setDifficulty(Difficulty.BEGINNER);
             else
                 menuBar.getBeginnerItem().setSelected(true);
         });
@@ -348,7 +352,7 @@ public class Minesweeper {
         // Intermediate
         menuBar.getIntermediateItem().addActionListener(e -> {
             if (menuBar.getIntermediateItem().isSelected())
-                changeDifficulty(Difficulty.INTERMEDIATE);
+                setDifficulty(Difficulty.INTERMEDIATE);
             else
                 menuBar.getIntermediateItem().setSelected(true);
         });
@@ -356,14 +360,22 @@ public class Minesweeper {
         // Expert
         menuBar.getExpertItem().addActionListener(e -> {
             if (menuBar.getExpertItem().isSelected())
-                changeDifficulty(Difficulty.EXPERT);
+                setDifficulty(Difficulty.EXPERT);
             else
                 menuBar.getExpertItem().setSelected(true);
         });
 
         // Custom
         menuBar.getCustomItem().addActionListener(e -> {
-
+            CustomMenuFrame customFrame = new CustomMenuFrame(size, mines);
+            if (!customFrame.isCancelled()) {
+                int newSize = customFrame.getNewSize();
+                int newMines = customFrame.getNewMines();
+                setDifficulty(newSize, newMines);
+            }
+            else {
+                menuBar.getCustomItem().setSelected(!menuBar.getCustomItem().isSelected());
+            }
         });
 
         // Best Times
@@ -381,27 +393,43 @@ public class Minesweeper {
      * Changes difficulty of the game.
      * @param difficulty new level of difficulty
      */
-    private void changeDifficulty(Difficulty difficulty) {
-        MyMenuBar menuBar = (MyMenuBar) frame.getJMenuBar();
+    private void setDifficulty(Difficulty difficulty) {
         deleteAllFields();
         switch (difficulty) {
             case BEGINNER -> {
                 menuBar.getIntermediateItem().setSelected(false);
                 menuBar.getExpertItem().setSelected(false);
+                menuBar.getCustomItem().setSelected(false);
             }
             case INTERMEDIATE -> {
                 menuBar.getBeginnerItem().setSelected(false);
                 menuBar.getExpertItem().setSelected(false);
+                menuBar.getCustomItem().setSelected(false);
             }
             case EXPERT -> {
                 menuBar.getBeginnerItem().setSelected(false);
                 menuBar.getIntermediateItem().setSelected(false);
+                menuBar.getCustomItem().setSelected(false);
             }
         }
         generateFields(difficulty.size);
-        generateBombs(difficulty.bombs);
+        generateBombs(difficulty.mines);
         assignNumbersToFields();
         restart();
     }
+
+    private void setDifficulty(int size, int mines) {
+        menuBar.getCustomItem().setSelected(true);
+        menuBar.getBeginnerItem().setSelected(false);
+        menuBar.getIntermediateItem().setSelected(false);
+        menuBar.getExpertItem().setSelected(false);
+
+        deleteAllFields();
+        generateFields(size);
+        generateBombs(mines);
+        assignNumbersToFields();
+        restart();
+    }
+
 
 }

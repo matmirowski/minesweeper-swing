@@ -10,7 +10,7 @@ public class MyMenuBar extends JMenuBar {
     private final JCheckBoxMenuItem beginnerItem = new JCheckBoxMenuItem("Beginner");
     private final JCheckBoxMenuItem intermediateItem = new JCheckBoxMenuItem("Intermediate");
     private final JCheckBoxMenuItem expertItem = new JCheckBoxMenuItem("Expert");
-    private final JMenuItem customItem = new JMenuItem("Custom...");
+    private final JCheckBoxMenuItem customItem = new JCheckBoxMenuItem("Custom...");
     private final JMenuItem bestTimesItem = new JMenuItem("Best Times...");
     private final JMenuItem exitItem = new JMenuItem("Exit");
     MyMenuBar() {
