@@ -72,18 +72,23 @@ public class CustomMenuFrame extends JDialog {
             int size = Integer.parseInt(sizeTextField.getText());
             int mines =Integer.parseInt(minesTextField.getText());
             if (size < 8)
-                throw new CustomMenuException("Size can't be lesser than 8!");
-            if (mines > size*size)
-                throw new CustomMenuException("Amount of mines can't exceed number of fields");
-            if (mines < 1)
-                throw new CustomMenuException("");
+                throw new CustomMenuException("Size can't be less than 8!");
+            else if (size > 31)
+                throw new CustomMenuException("Size can't be greater than 31.");
+            else if (mines > size*size)
+                throw new CustomMenuException("Amount of mines can't exceed number of fields.");
+            else if (mines < 1)
+                throw new CustomMenuException("Amount of mines must be greater than 0.");
+            return true;
         }
         catch (NumberFormatException e) {
-            errorMessage = "Invalid input data format! Try again.";
+            errorMessage = "Invalid number format!";
         }
         catch (CustomMenuException e) {
             errorMessage = e.getMessage();
         }
+        JOptionPane.showMessageDialog(null, errorMessage, "Error!", JOptionPane.ERROR_MESSAGE);
+        return false;
     }
 
 }
