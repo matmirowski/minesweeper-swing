@@ -31,6 +31,9 @@ public class MyMenuBar extends JMenuBar {
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
 
+        // TODO temporarily disabled
+        bestTimesItem.setEnabled(false);
+
         beginnerItem.setSelected(true);
 
         JMenuItem aboutItem = new JMenuItem("About Minesweeper");
