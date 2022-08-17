@@ -39,5 +39,8 @@ public class MyMenuBar extends JMenuBar {
         JMenuItem aboutItem = new JMenuItem("About Minesweeper");
         helpMenu.add(aboutItem);
 
+        //TODO temporarily disabled
+        helpMenu.setEnabled(false);
+
     }
 }
