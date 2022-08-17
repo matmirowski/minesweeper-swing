@@ -344,7 +344,7 @@ public class Minesweeper {
         // Beginner
         menuBar.getBeginnerItem().addActionListener(e -> {
             if (menuBar.getBeginnerItem().isSelected())
-                setDifficulty(Difficulty.BEGINNER);
+                setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.SIZE, Difficulty.BEGINNER.MINES);
             else
                 menuBar.getBeginnerItem().setSelected(true);
         });
@@ -352,7 +352,7 @@ public class Minesweeper {
         // Intermediate
         menuBar.getIntermediateItem().addActionListener(e -> {
             if (menuBar.getIntermediateItem().isSelected())
-                setDifficulty(Difficulty.INTERMEDIATE);
+                setDifficulty(Difficulty.INTERMEDIATE, Difficulty.INTERMEDIATE.SIZE, Difficulty.EXPERT.MINES);
             else
                 menuBar.getIntermediateItem().setSelected(true);
         });
@@ -360,7 +360,7 @@ public class Minesweeper {
         // Expert
         menuBar.getExpertItem().addActionListener(e -> {
             if (menuBar.getExpertItem().isSelected())
-                setDifficulty(Difficulty.EXPERT);
+                setDifficulty(Difficulty.EXPERT, Difficulty.EXPERT.SIZE, Difficulty.EXPERT.MINES);
             else
                 menuBar.getExpertItem().setSelected(true);
         });
@@ -371,7 +371,7 @@ public class Minesweeper {
             if (!customFrame.isCancelled()) {
                 int newSize = customFrame.getNewSize();
                 int newMines = customFrame.getNewMines();
-                setDifficulty(newSize, newMines);
+                setDifficulty(Difficulty.CUSTOM, newSize, newMines);
             }
             else {
                 menuBar.getCustomItem().setSelected(!menuBar.getCustomItem().isSelected());
@@ -393,8 +393,7 @@ public class Minesweeper {
      * Changes difficulty of the game.
      * @param difficulty new level of difficulty
      */
-    private void setDifficulty(Difficulty difficulty) {
-        deleteAllFields();
+    private void setDifficulty(Difficulty difficulty, int size, int mines) {
         switch (difficulty) {
             case BEGINNER -> {
                 menuBar.getIntermediateItem().setSelected(false);
@@ -411,25 +410,18 @@ public class Minesweeper {
                 menuBar.getIntermediateItem().setSelected(false);
                 menuBar.getCustomItem().setSelected(false);
             }
+            case CUSTOM -> {
+                menuBar.getCustomItem().setSelected(true);
+                menuBar.getBeginnerItem().setSelected(false);
+                menuBar.getIntermediateItem().setSelected(false);
+                menuBar.getExpertItem().setSelected(false);
+            }
         }
-        generateFields(difficulty.size);
-        generateBombs(difficulty.mines);
-        assignNumbersToFields();
-        restart();
-    }
-
-    private void setDifficulty(int size, int mines) {
-        menuBar.getCustomItem().setSelected(true);
-        menuBar.getBeginnerItem().setSelected(false);
-        menuBar.getIntermediateItem().setSelected(false);
-        menuBar.getExpertItem().setSelected(false);
-
         deleteAllFields();
         generateFields(size);
         generateBombs(mines);
         assignNumbersToFields();
         restart();
     }
-
 
 }

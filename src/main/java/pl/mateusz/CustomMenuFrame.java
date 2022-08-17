@@ -14,6 +14,8 @@ public class CustomMenuFrame extends JDialog {
     private boolean cancelled;
     private final JTextField sizeTextField;
     private final JTextField minesTextField;
+    private static final int MAX_SIZE = 31;
+    private static final int MIN_SIZE = 8;
 
     public CustomMenuFrame(int currentSize, int currentMines) {
         this.setModal(true);
@@ -71,9 +73,9 @@ public class CustomMenuFrame extends JDialog {
         try {
             int size = Integer.parseInt(sizeTextField.getText());
             int mines =Integer.parseInt(minesTextField.getText());
-            if (size < 8)
+            if (size < MIN_SIZE)
                 throw new CustomMenuException("Size can't be less than 8!");
-            else if (size > 31)
+            else if (size > MAX_SIZE)
                 throw new CustomMenuException("Size can't be greater than 31.");
             else if (mines > size*size)
                 throw new CustomMenuException("Amount of mines can't exceed number of fields.");
