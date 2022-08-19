@@ -56,6 +56,7 @@ public class CustomFrame extends JDialog {
             }
         });
 
+        //TODO change labels to anonymous
         this.add(sizeLabel);
         this.add(sizeTextField);
         this.add(okButton);
