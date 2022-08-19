@@ -6,10 +6,6 @@ public class Main {
         Minesweeper minesweeper = new Minesweeper();
         minesweeper.init();
 
-        //TODO best results (serialization or json?, maybe database)
-        //TODO menu bar
-        //TODO custom sizes of a map (and bombs)
-        //TODO sounds?
-        //TODO finish left/rightclick
+        //TODO best results (serialization or json?)
     }
 }
