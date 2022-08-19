@@ -13,18 +13,19 @@ public class BestScoresFrame extends JDialog {
         // TODO temporary - change close operation
         // this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
-        //this.setLayout(new GridLayout(2,3,10,10));
         this.setLayout(new BorderLayout(0,0));
         this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
         JPanel scoresPanel = new JPanel(new GridLayout(3,3));
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
+        JLabel beginnerLabel = new JLabel("Beginner:");
+        JLabel intermediateLabel = new JLabel("Intermediate:");
+        JLabel expertLabel = new JLabel("Expert:");
+
 
         this.add(scoresPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.SOUTH);
-
-
 
     }
 }
