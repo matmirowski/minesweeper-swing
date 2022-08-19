@@ -380,7 +380,8 @@ public class Minesweeper {
 
         // Best Times
         menuBar.getBestTimesItem().addActionListener(e -> {
-
+            //TODO temporarily set custom values
+            BestScoresFrame scoresFrame = new BestScoresFrame(1,2,3);
         });
 
         // Exit
