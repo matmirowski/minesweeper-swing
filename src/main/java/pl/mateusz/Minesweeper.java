@@ -367,7 +367,7 @@ public class Minesweeper {
 
         // Custom
         menuBar.getCustomItem().addActionListener(e -> {
-            CustomMenuFrame customFrame = new CustomMenuFrame(size, mines);
+            CustomFrame customFrame = new CustomFrame(size, mines);
             if (!customFrame.isCancelled()) {
                 int newSize = customFrame.getNewSize();
                 int newMines = customFrame.getNewMines();
