@@ -11,6 +11,8 @@ import java.awt.*;
 import java.net.URL;
 
 public class Frame extends JFrame {
+    // Contains topPanel and gamePanel, everything inside the frame, except menubar
+    private final JPanel mainPanel = new JPanel(new BorderLayout(0,2));
     @Getter
     // Contains MineCounter, Stopwatch and ResetButton
     private JPanel topPanel;
@@ -27,14 +29,16 @@ public class Frame extends JFrame {
             e.printStackTrace();
         }
 
-        // Frame initial configuration (title, borders, menubar)
+        // Frame and mainPanel initial configuration (title, borders, menubar)
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLayout(new BorderLayout(5,0));
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.lightGray));
+        this.setLayout(new BorderLayout(0,0));
         this.setJMenuBar(new MyMenuBar());
         this.setLocationRelativeTo(null);
+        this.add(mainPanel);
+        mainPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.lightGray));
+        mainPanel.setBackground(Color.lightGray);
 
         // Loading icon
         ImageIcon frameIcon;
@@ -54,8 +58,8 @@ public class Frame extends JFrame {
         gamePanel = new JPanel(new GridLayout(8,8,0,0));
         gamePanel.setBorder(BorderFactory.createEtchedBorder());
 
-        this.add(topPanel,BorderLayout.NORTH);
-        this.add(gamePanel,BorderLayout.CENTER);
+        mainPanel.add(topPanel,BorderLayout.NORTH);
+        mainPanel.add(gamePanel,BorderLayout.CENTER);
     }
 
     public void addComponentsToPanels(MineCounter mc, ResetButton rb, Stopwatch tm) {
