@@ -8,7 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 @Getter
-public class CustomMenuFrame extends JDialog {
+public class CustomFrame extends JDialog {
     private int newSize;
     private int newMines;
     private boolean cancelled;
@@ -17,7 +17,7 @@ public class CustomMenuFrame extends JDialog {
     private static final int MAX_SIZE = 31;
     private static final int MIN_SIZE = 8;
 
-    public CustomMenuFrame(int currentSize, int currentMines) {
+    public CustomFrame(int currentSize, int currentMines) {
         this.setModal(true);
         this.setTitle("Custom Field");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
