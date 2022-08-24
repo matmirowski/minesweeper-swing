@@ -10,9 +10,7 @@ public class BestResults implements Serializable {
     private HashMap<Difficulty, Integer> scores = new HashMap<>();
 
     public BestResults() {
-        scores.put(Difficulty.BEGINNER, 999);
-        scores.put(Difficulty.INTERMEDIATE, 999);
-        scores.put(Difficulty.EXPERT, 999);
+        setDefault();
     }
     public int getBeginnerScore() {
         return scores.get(Difficulty.BEGINNER);
@@ -24,5 +22,11 @@ public class BestResults implements Serializable {
 
     public int getExpertScore() {
         return scores.get(Difficulty.EXPERT);
+    }
+
+    public void setDefault() {
+        scores.put(Difficulty.BEGINNER, 999);
+        scores.put(Difficulty.INTERMEDIATE, 999);
+        scores.put(Difficulty.EXPERT, 999);
     }
 }

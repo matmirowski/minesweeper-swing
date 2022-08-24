@@ -13,6 +13,10 @@ public class BestResultsFrame extends JDialog {
     private int beginnerResult;
     private int intermediateResult;
     private int expertResult;
+    private JLabel beginnerResultLabel = new JLabel();
+    private JLabel intermediateResultLabel = new JLabel();
+    private JLabel expertResultLabel = new JLabel();
+    private BestResults bestResults;
 
     //TODO split into methods
     public BestResultsFrame(BestResults bestResults) {
@@ -22,21 +26,18 @@ public class BestResultsFrame extends JDialog {
         this.setResizable(false);
         this.setLayout(new BorderLayout(0,0));
         this.getRootPane().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
-        this.beginnerResult = bestResults.getBeginnerScore();
-        this.intermediateResult = bestResults.getIntermediateScore();
-        this.expertResult = bestResults.getExpertScore();
+        this.bestResults = bestResults;
 
         /* Results Panel */
         JPanel resultsPanel = new JPanel(new GridLayout(3,3,10,10));
         resultsPanel.setBorder(BorderFactory.createEtchedBorder());
 
+        this.loadResults();
+
         JLabel beginnerLabel = new JLabel("Beginner:");
         JLabel intermediateLabel = new JLabel("Intermediate:");
         JLabel expertLabel = new JLabel("Expert:");
-        JLabel beginnerResultLabel = new JLabel(beginnerResult + " seconds");
-        JLabel intermediateResultLabel = new JLabel(intermediateResult + " seconds");
-        JLabel expertResultLabel = new JLabel(expertResult + " seconds");
+
 
         resultsPanel.add(beginnerLabel);
         resultsPanel.add(beginnerResultLabel);
@@ -59,7 +60,8 @@ public class BestResultsFrame extends JDialog {
                     "Are you sure you want to reset all the best times?",
                     "Reset Scores",JOptionPane.YES_NO_OPTION);
             if (resetAnswer == 0) {
-
+                bestResults.setDefault();
+                this.loadResults();
             }
 
         });
@@ -78,5 +80,15 @@ public class BestResultsFrame extends JDialog {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    private void loadResults() {
+        this.beginnerResult = bestResults.getBeginnerScore();
+        this.intermediateResult = bestResults.getIntermediateScore();
+        this.expertResult = bestResults.getExpertScore();
+
+        private JLabel beginnerResultLabel = new JLabel(beginnerResult + " seconds");
+        private JLabel intermediateResultLabel = new JLabel(intermediateResult + " seconds");
+        private JLabel expertResultLabel = new JLabel(expertResult + " seconds");
     }
 }
