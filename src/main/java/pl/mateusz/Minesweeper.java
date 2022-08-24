@@ -455,9 +455,8 @@ public class Minesweeper {
     }
 
     private void serializeBestResults() {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("results.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        try (FileOutputStream fileOut = new FileOutputStream("results.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(bestResults);
         } catch (IOException e) {
             throw new RuntimeException(e);
