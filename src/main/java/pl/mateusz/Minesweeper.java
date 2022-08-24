@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,6 +28,7 @@ public class Minesweeper {
     /** Ammount of bombs "planted" in the current game */
     private int mines;
     private int size;
+    private BestResults bestResults;
 
 
     /** Constructor, creating a JFrame and configuring MenuBar ActionListeners */
@@ -34,6 +36,7 @@ public class Minesweeper {
         frame = new Frame();
         menuBar = (MyMenuBar) frame.getJMenuBar();
         configureMenuBarActions();
+        deserializeBestResults();
     }
 
     /** Configuring and generating all game components */
@@ -423,6 +426,31 @@ public class Minesweeper {
         generateBombs(mines);
         assignNumbersToFields();
         restart();
+    }
+
+    private void deserializeBestResults() {
+        //String fileURL = System.getProperty("user.home") + "\\minesweeperdata.ser";
+        URL resultsURL = getClass().getResource("/results/bestresults.ser");
+        String resultsPath = String.valueOf(resultsURL);
+        try (FileInputStream fileIn = new FileInputStream(resultsPath);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            bestResults = (BestResults) in.readObject();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            bestResults = new BestResults();
+        }
+    }
+
+    private void serializeBestResults() {
+        URL resultsURL = getClass().getResource("/results/bestresults.ser");
+        String resultPath = String.valueOf(resultsURL);
+        try {
+            FileOutputStream fileOut = new FileOutputStream(resultPath);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(bestResults);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
