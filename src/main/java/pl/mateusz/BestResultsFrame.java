@@ -1,14 +1,9 @@
 package pl.mateusz;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class BestResultsFrame extends JDialog {
-    @Getter
     private int beginnerResult;
     private int intermediateResult;
     private int expertResult;
@@ -16,7 +11,7 @@ public class BestResultsFrame extends JDialog {
     private JLabel intermediateResultLabel = new JLabel();
     private JLabel expertResultLabel = new JLabel();
     private BestResults bestResults;
-    
+
     public BestResultsFrame(BestResults bestResults) {
         this.setModal(true);
         this.setTitle("Best Results");

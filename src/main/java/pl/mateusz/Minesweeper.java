@@ -43,9 +43,7 @@ public class Minesweeper {
     public void init() {
         frame.generatePanels();
         frame.addComponentsToPanels(mineCounter, resetButton, stopwatch);
-        generateFields(8);
-        generateBombs(10);
-        assignNumbersToFields();
+        setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.SIZE, Difficulty.BEGINNER.MINES);
         resetButton.addActionListener(e -> restart());
         frame.setVisible(true);
     }
