@@ -4,13 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BestResultsFrame extends JDialog {
-    private int beginnerResult;
-    private int intermediateResult;
-    private int expertResult;
-    private JLabel beginnerResultLabel = new JLabel();
-    private JLabel intermediateResultLabel = new JLabel();
-    private JLabel expertResultLabel = new JLabel();
-    private BestResults bestResults;
+    private final JLabel beginnerResultLabel = new JLabel();
+    private final JLabel intermediateResultLabel = new JLabel();
+    private final JLabel expertResultLabel = new JLabel();
+    private final BestResults bestResults;
 
     public BestResultsFrame(BestResults bestResults) {
         this.setModal(true);
@@ -31,9 +28,9 @@ public class BestResultsFrame extends JDialog {
     }
 
     private void loadResults() {
-        this.beginnerResult = bestResults.getResult(Difficulty.BEGINNER);
-        this.intermediateResult = bestResults.getResult(Difficulty.INTERMEDIATE);
-        this.expertResult = bestResults.getResult(Difficulty.EXPERT);
+        int beginnerResult = bestResults.getResult(Difficulty.BEGINNER);
+        int intermediateResult = bestResults.getResult(Difficulty.INTERMEDIATE);
+        int expertResult = bestResults.getResult(Difficulty.EXPERT);
 
         beginnerResultLabel.setText(beginnerResult + " seconds");
         intermediateResultLabel.setText(intermediateResult + " seconds");
