@@ -10,14 +10,22 @@ import java.awt.event.WindowEvent;
 public class BestResultsFrame extends JDialog {
     @Getter
     private boolean reset = false;
+    private int beginnerResult;
+    private int intermediateResult;
+    private int expertResult;
 
-    public BestResultsFrame(int beginnerResult, int intermediateResult, int expertResult) {
+    //TODO split into methods
+    public BestResultsFrame(BestResults bestResults) {
         this.setModal(true);
         this.setTitle("Best Results");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(new BorderLayout(0,0));
         this.getRootPane().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        this.beginnerResult = bestResults.getBeginnerScore();
+        this.intermediateResult = bestResults.getIntermediateScore();
+        this.expertResult = bestResults.getExpertScore();
 
         /* Results Panel */
         JPanel resultsPanel = new JPanel(new GridLayout(3,3,10,10));
@@ -26,9 +34,9 @@ public class BestResultsFrame extends JDialog {
         JLabel beginnerLabel = new JLabel("Beginner:");
         JLabel intermediateLabel = new JLabel("Intermediate:");
         JLabel expertLabel = new JLabel("Expert:");
-        JLabel beginnerResultLabel = new JLabel(String.valueOf(beginnerResult) + " seconds");
-        JLabel intermediateResultLabel = new JLabel(String.valueOf(intermediateResult) + " seconds");
-        JLabel expertResultLabel = new JLabel(String.valueOf(expertResult) + " seconds");
+        JLabel beginnerResultLabel = new JLabel(beginnerResult + " seconds");
+        JLabel intermediateResultLabel = new JLabel(intermediateResult + " seconds");
+        JLabel expertResultLabel = new JLabel(expertResult + " seconds");
 
         resultsPanel.add(beginnerLabel);
         resultsPanel.add(beginnerResultLabel);

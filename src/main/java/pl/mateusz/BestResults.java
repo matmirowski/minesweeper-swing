@@ -14,4 +14,15 @@ public class BestResults implements Serializable {
         scores.put(Difficulty.INTERMEDIATE, 999);
         scores.put(Difficulty.EXPERT, 999);
     }
+    public int getBeginnerScore() {
+        return scores.get(Difficulty.BEGINNER);
+    }
+
+    public int getIntermediateScore() {
+        return scores.get(Difficulty.INTERMEDIATE);
+    }
+
+    public int getExpertScore() {
+        return scores.get(Difficulty.EXPERT);
+    }
 }
