@@ -1,6 +1,7 @@
-package pl.mateusz;
+package pl.mateusz.frames;
 
 import lombok.Getter;
+import pl.mateusz.MyMenuBar;
 import pl.mateusz.buttons.Field;
 import pl.mateusz.buttons.MineCounter;
 import pl.mateusz.buttons.ResetButton;

@@ -1,4 +1,7 @@
-package pl.mateusz;
+package pl.mateusz.frames;
+
+import pl.mateusz.BestResults;
+import pl.mateusz.Difficulty;
 
 import javax.swing.*;
 import java.awt.*;

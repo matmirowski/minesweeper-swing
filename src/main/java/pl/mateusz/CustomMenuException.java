@@ -1,7 +1,7 @@
 package pl.mateusz;
 
 public class CustomMenuException extends Exception{
-    CustomMenuException(String message) {
+    public CustomMenuException(String message) {
         super(message);
     }
 }

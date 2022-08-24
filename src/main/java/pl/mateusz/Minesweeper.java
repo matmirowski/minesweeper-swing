@@ -2,6 +2,9 @@ package pl.mateusz;
 
 import pl.mateusz.buttons.*;
 import pl.mateusz.buttons.Stopwatch;
+import pl.mateusz.frames.BestResultsFrame;
+import pl.mateusz.frames.CustomFrame;
+import pl.mateusz.frames.Frame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Minesweeper {
-    private final Frame frame;
+    private final pl.mateusz.frames.Frame frame;
     /** ArrayList containing all game fields */
 
     private final MyMenuBar menuBar;
@@ -197,7 +200,7 @@ public class Minesweeper {
         URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon_spinning.gif");
         if (winOptionPaneIconURL != null)
             winOptionPaneIcon = new ImageIcon(winOptionPaneIconURL);
-
+        //TODO add information about difficulty
         int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
                 + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
                 , winOptionPaneIcon, options, null);
@@ -280,12 +283,10 @@ public class Minesweeper {
         field.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
-
                 // *** RIGHT CLICK ***
                 if (SwingUtilities.isRightMouseButton(me)) {
                     rightClickOnField(field);
                 }
-
                 // *** LEFT CLICK ***
                 else if (SwingUtilities.isLeftMouseButton(me))
                     leftClickOnField(field);
@@ -369,7 +370,7 @@ public class Minesweeper {
         // Intermediate
         menuBar.getIntermediateItem().addActionListener(e -> {
             if (menuBar.getIntermediateItem().isSelected())
-                setDifficulty(Difficulty.INTERMEDIATE, Difficulty.INTERMEDIATE.SIZE, Difficulty.EXPERT.MINES);
+                setDifficulty(Difficulty.INTERMEDIATE, Difficulty.INTERMEDIATE.SIZE, Difficulty.INTERMEDIATE.MINES);
             else
                 menuBar.getIntermediateItem().setSelected(true);
         });

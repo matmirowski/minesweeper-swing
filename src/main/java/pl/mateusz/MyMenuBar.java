@@ -13,7 +13,7 @@ public class MyMenuBar extends JMenuBar {
     private final JCheckBoxMenuItem customItem = new JCheckBoxMenuItem("Custom...");
     private final JMenuItem bestTimesItem = new JMenuItem("Best Times...");
     private final JMenuItem exitItem = new JMenuItem("Exit");
-    MyMenuBar() {
+    public MyMenuBar() {
         JMenu gameMenu = new JMenu("Game");
         JMenu helpMenu = new JMenu("Help");
 

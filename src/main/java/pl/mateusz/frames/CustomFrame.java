@@ -1,6 +1,7 @@
-package pl.mateusz;
+package pl.mateusz.frames;
 
 import lombok.Getter;
+import pl.mateusz.CustomMenuException;
 
 import javax.swing.*;
 import java.awt.*;
