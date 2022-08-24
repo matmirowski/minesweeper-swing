@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.URL;
@@ -35,6 +36,13 @@ public class Minesweeper {
     /** Constructor, creating a JFrame and configuring MenuBar ActionListeners */
     public Minesweeper() {
         frame = new Frame();
+        // When user closes app we need to serialize best results to file
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                serializeBestResults();
+            }
+        });
         menuBar = (MyMenuBar) frame.getJMenuBar();
         configureMenuBarActions();
         deserializeBestResults();
@@ -393,8 +401,10 @@ public class Minesweeper {
         });
 
         // Exit
-        menuBar.getExitItem().addActionListener(e ->
-            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING))
+        menuBar.getExitItem().addActionListener(e -> {
+            serializeBestResults();
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
         );
     }
 
@@ -435,10 +445,7 @@ public class Minesweeper {
     }
 
     private void deserializeBestResults() {
-        //String fileURL = System.getProperty("user.home") + "\\minesweeperdata.ser";
-        URL resultsURL = getClass().getResource("/results/bestresults.ser");
-        String resultsPath = String.valueOf(resultsURL);
-        try (FileInputStream fileIn = new FileInputStream(resultsPath);
+        try (FileInputStream fileIn = new FileInputStream("results.ser");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             bestResults = (BestResults) in.readObject();
         }
@@ -448,10 +455,8 @@ public class Minesweeper {
     }
 
     private void serializeBestResults() {
-        URL resultsURL = getClass().getResource("/results/bestresults.ser");
-        String resultPath = String.valueOf(resultsURL);
         try {
-            FileOutputStream fileOut = new FileOutputStream(resultPath);
+            FileOutputStream fileOut = new FileOutputStream("results.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(bestResults);
         } catch (IOException e) {
