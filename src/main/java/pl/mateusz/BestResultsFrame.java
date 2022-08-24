@@ -87,8 +87,8 @@ public class BestResultsFrame extends JDialog {
         this.intermediateResult = bestResults.getIntermediateScore();
         this.expertResult = bestResults.getExpertScore();
 
-        private JLabel beginnerResultLabel = new JLabel(beginnerResult + " seconds");
-        private JLabel intermediateResultLabel = new JLabel(intermediateResult + " seconds");
-        private JLabel expertResultLabel = new JLabel(expertResult + " seconds");
+        beginnerResultLabel.setText(beginnerResult + " seconds");
+        intermediateResultLabel.setText(intermediateResult + " seconds");
+        expertResultLabel.setText(expertResult + " seconds");
     }
 }
