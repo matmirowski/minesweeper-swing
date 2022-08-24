@@ -31,9 +31,9 @@ public class BestResultsFrame extends JDialog {
     }
 
     private void loadResults() {
-        this.beginnerResult = bestResults.getBeginnerScore();
-        this.intermediateResult = bestResults.getIntermediateScore();
-        this.expertResult = bestResults.getExpertScore();
+        this.beginnerResult = bestResults.getResult(Difficulty.BEGINNER);
+        this.intermediateResult = bestResults.getResult(Difficulty.INTERMEDIATE);
+        this.expertResult = bestResults.getResult(Difficulty.EXPERT);
 
         beginnerResultLabel.setText(beginnerResult + " seconds");
         intermediateResultLabel.setText(intermediateResult + " seconds");

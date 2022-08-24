@@ -28,6 +28,7 @@ public class Minesweeper {
     /** Ammount of bombs "planted" in the current game */
     private int mines;
     private int size;
+    private Difficulty difficulty;
     private BestResults bestResults;
 
 
@@ -165,18 +166,25 @@ public class Minesweeper {
 
     /** Activated by checkWin() method, displays JOptionPane with score */
     private void win() {
+
+        /* Checking if score is better than currently best score */
         int score = Integer.parseInt(stopwatch.getText());
-        String[] options = {"Yes","No"};
-        ImageIcon winOptionPaneIcon = null;
+        if (difficulty != Difficulty.CUSTOM) {
+            int currentlyBestResult = bestResults.getResult(difficulty);
+            if (score < currentlyBestResult) {
+                bestResults.updateResult(difficulty, score);
+            }
+        }
 
         stopwatch.stopCounting();
-
         resetButton.playWinAnimation();
 
         /*
          * Displaying JOptionPane with score and logo icon.
          * Player can either play again (choice=0) or exit (choice=1)
          */
+        String[] options = {"Yes","No"};
+        ImageIcon winOptionPaneIcon = null;
 
         URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon_spinning.gif");
         if (winOptionPaneIconURL != null)
@@ -418,6 +426,7 @@ public class Minesweeper {
                 menuBar.getExpertItem().setSelected(false);
             }
         }
+        this.difficulty = difficulty;
         deleteAllFields();
         generateFields(size);
         generateBombs(mines);
