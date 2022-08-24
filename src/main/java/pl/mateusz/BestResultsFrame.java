@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 
 public class BestResultsFrame extends JDialog {
     @Getter
-    private boolean reset = false;
     private int beginnerResult;
     private int intermediateResult;
     private int expertResult;
@@ -17,66 +16,20 @@ public class BestResultsFrame extends JDialog {
     private JLabel intermediateResultLabel = new JLabel();
     private JLabel expertResultLabel = new JLabel();
     private BestResults bestResults;
-
-    //TODO split into methods
+    
     public BestResultsFrame(BestResults bestResults) {
         this.setModal(true);
         this.setTitle("Best Results");
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(new BorderLayout(0,0));
         this.getRootPane().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         this.bestResults = bestResults;
 
-        /* Results Panel */
-        JPanel resultsPanel = new JPanel(new GridLayout(3,3,10,10));
-        resultsPanel.setBorder(BorderFactory.createEtchedBorder());
+        loadResults();
+        configureResultsPanel();
+        configureButtonPanel();
 
-        this.loadResults();
-
-        JLabel beginnerLabel = new JLabel("Beginner:");
-        JLabel intermediateLabel = new JLabel("Intermediate:");
-        JLabel expertLabel = new JLabel("Expert:");
-
-
-        resultsPanel.add(beginnerLabel);
-        resultsPanel.add(beginnerResultLabel);
-        resultsPanel.add(intermediateLabel);
-        resultsPanel.add(intermediateResultLabel);
-        resultsPanel.add(expertLabel);
-        resultsPanel.add(expertResultLabel);
-
-
-        /* Button Panel */
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
-        JButton okButton = new JButton("OK");
-        JButton resetButton = new JButton("Reset Scores");
-
-        okButton.addActionListener(e -> dispose());
-
-        resetButton.addActionListener(e -> {
-            int resetAnswer = JOptionPane.showConfirmDialog(null,
-                    "Are you sure you want to reset all the best times?",
-                    "Reset Scores",JOptionPane.YES_NO_OPTION);
-            if (resetAnswer == 0) {
-                bestResults.setDefault();
-                this.loadResults();
-            }
-
-        });
-
-        buttonPanel.add(okButton);
-        buttonPanel.add(resetButton);
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                dispose();
-            }
-        });
-        this.add(resultsPanel, BorderLayout.NORTH);
-        this.add(buttonPanel, BorderLayout.SOUTH);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -90,5 +43,39 @@ public class BestResultsFrame extends JDialog {
         beginnerResultLabel.setText(beginnerResult + " seconds");
         intermediateResultLabel.setText(intermediateResult + " seconds");
         expertResultLabel.setText(expertResult + " seconds");
+    }
+
+    private void configureResultsPanel() {
+        JPanel resultsPanel = new JPanel(new GridLayout(3,3,10,10));
+        resultsPanel.setBorder(BorderFactory.createEtchedBorder());
+
+        resultsPanel.add(new JLabel("Beginner:"));
+        resultsPanel.add(beginnerResultLabel);
+        resultsPanel.add(new JLabel("Intermediate:"));
+        resultsPanel.add(intermediateResultLabel);
+        resultsPanel.add(new JLabel("Expert:"));
+        resultsPanel.add(expertResultLabel);
+        this.add(resultsPanel, BorderLayout.NORTH);
+    }
+
+    private void configureButtonPanel() {
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // OK
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> dispose());
+        // Reset
+        JButton resetButton = new JButton("Reset Scores");
+        resetButton.addActionListener(e -> {
+            int resetAnswer = JOptionPane.showConfirmDialog(null,
+                    "Are you sure you want to reset all the best times?",
+                    "Reset Scores",JOptionPane.YES_NO_OPTION);
+            if (resetAnswer == 0) {
+                bestResults.setDefault();
+                this.loadResults();
+            }
+        });
+        buttonPanel.add(okButton);
+        buttonPanel.add(resetButton);
+        this.add(buttonPanel, BorderLayout.SOUTH);
     }
 }
