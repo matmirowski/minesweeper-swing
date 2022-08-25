@@ -2,15 +2,13 @@ package pl.mateusz;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class BestResults implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 2;
     private final HashMap<Difficulty, Integer> scores = new HashMap<>();
     private final HashMap<Difficulty, String> dates = new HashMap<>();
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm");

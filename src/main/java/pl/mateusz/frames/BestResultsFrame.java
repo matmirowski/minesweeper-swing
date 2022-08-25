@@ -20,8 +20,8 @@ public class BestResultsFrame extends JDialog {
         this.setTitle("Best Results");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setResizable(false);
-        this.setLayout(new BorderLayout(0,0));
-        this.getRootPane().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        this.setLayout(new BorderLayout(0,2));
+        this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         this.bestResults = bestResults;
 
         loadResults();
@@ -51,7 +51,9 @@ public class BestResultsFrame extends JDialog {
 
     private void configureResultsPanel() {
         JPanel resultsPanel = new JPanel(new GridLayout(3,3,10,10));
-        resultsPanel.setBorder(BorderFactory.createEtchedBorder());
+        //resultsPanel.setBorder(BorderFactory.createEtchedBorder());
+        resultsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(),
+                BorderFactory.createEmptyBorder(10,10,10,10)));
 
         resultsPanel.add(new JLabel("Beginner:"));
         resultsPanel.add(beginnerResultLabel);
