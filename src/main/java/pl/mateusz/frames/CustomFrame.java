@@ -26,42 +26,17 @@ public class CustomFrame extends JDialog {
         this.setLayout(new GridLayout(2,3,10,10));
         this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        JLabel sizeLabel = new JLabel("Size:");
-        JLabel minesLabel = new JLabel("Mines:");
         JButton okButton = new JButton("OK");
         JButton cancelButton = new JButton("Cancel");
         sizeTextField = new JTextField(String.valueOf(currentSize));
         minesTextField = new JTextField(String.valueOf(currentMines));
 
-        okButton.addActionListener(e -> {
-            if (checkInputValues()) {
-                int size = Integer.parseInt(sizeTextField.getText());
-                int mines = Integer.parseInt(minesTextField.getText());
-                this.newSize = size;
-                this.newMines = mines;
-                this.cancelled = false;
-                dispose();
-            }
-        });
+        manageActionListeners(okButton, cancelButton);
 
-        cancelButton.addActionListener(e -> {
-            this.cancelled = true;
-            dispose();
-        });
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                cancelled = true;
-                dispose();
-            }
-        });
-
-        //TODO change labels to anonymous
-        this.add(sizeLabel);
+        this.add(new JLabel("Size:"));
         this.add(sizeTextField);
         this.add(okButton);
-        this.add(minesLabel);
+        this.add(new JLabel("Mines:"));
         this.add(minesTextField);
         this.add(cancelButton);
 
@@ -95,4 +70,29 @@ public class CustomFrame extends JDialog {
         return false;
     }
 
+    private void manageActionListeners(JButton okButton, JButton cancelButton) {
+        okButton.addActionListener(e -> {
+            if (checkInputValues()) {
+                int size = Integer.parseInt(sizeTextField.getText());
+                int mines = Integer.parseInt(minesTextField.getText());
+                this.newSize = size;
+                this.newMines = mines;
+                this.cancelled = false;
+                dispose();
+            }
+        });
+
+        cancelButton.addActionListener(e -> {
+            this.cancelled = true;
+            dispose();
+        });
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                cancelled = true;
+                dispose();
+            }
+        });
+    }
 }

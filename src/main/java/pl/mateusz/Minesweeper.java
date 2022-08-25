@@ -71,7 +71,7 @@ public class Minesweeper {
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
                 f.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-                fieldMouseEvents(f);
+                assignMouseListener(f);
                 frame.getGamePanel().setLayout(new GridLayout(size,size,0,0));
                 frame.addComponentsToPanels(f);
                 fields.add(f);
@@ -243,7 +243,7 @@ public class Minesweeper {
      * @param x x coordinate of the field
      * @param y y coordinate of the field
      */
-    private void emptyFieldsDisplay(int x, int y) {
+    private void displayEmptyFields(int x, int y) {
 
         // finding field
         Field f = fields.stream()
@@ -264,14 +264,14 @@ public class Minesweeper {
 
         // if field is empty
         f.display();
-        emptyFieldsDisplay(x+1,y);
-        emptyFieldsDisplay(x-1,y);
-        emptyFieldsDisplay(x,y+1);
-        emptyFieldsDisplay(x,y-1);
-        emptyFieldsDisplay(x+1,y+1);
-        emptyFieldsDisplay(x+1,y-1);
-        emptyFieldsDisplay(x-1,y+1);
-        emptyFieldsDisplay(x-1,y-1);
+        displayEmptyFields(x+1,y);
+        displayEmptyFields(x-1,y);
+        displayEmptyFields(x,y+1);
+        displayEmptyFields(x,y-1);
+        displayEmptyFields(x+1,y+1);
+        displayEmptyFields(x+1,y-1);
+        displayEmptyFields(x-1,y+1);
+        displayEmptyFields(x-1,y-1);
     }
 
     /**
@@ -279,17 +279,17 @@ public class Minesweeper {
      * Runs leftClickOnField or rightClickOnField method.
      * @param field clicked field
      */
-    private void fieldMouseEvents(Field field) {
+    private void assignMouseListener(Field field) {
         field.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
                 // *** RIGHT CLICK ***
                 if (SwingUtilities.isRightMouseButton(me)) {
-                    rightClickOnField(field);
+                    manageRightClickOnField(field);
                 }
                 // *** LEFT CLICK ***
                 else if (SwingUtilities.isLeftMouseButton(me))
-                    leftClickOnField(field);
+                    manageLeftClickOnField(field);
             }
         });
     }
@@ -298,7 +298,7 @@ public class Minesweeper {
      * Handles left click, sets field status.
      * @param field clicked field
      */
-    private void leftClickOnField(Field field) {
+    private void manageLeftClickOnField(Field field) {
         // if we didnt start the timer yet, we start it
         if (stopwatch.getText().equals("000"))
             stopwatch.startCounting();
@@ -314,7 +314,7 @@ public class Minesweeper {
 
         // if field is empty we start displaying fields nearby
         else if (!field.isMarked() && field.getType().equals(FieldType.EMPTY))
-            emptyFieldsDisplay(field.getX_cord(), field.getY_cord());
+            displayEmptyFields(field.getX_cord(), field.getY_cord());
 
         // if player clicked on the bomb, it's game over
         else if (field.getType().equals(FieldType.BOMB)) {
@@ -327,7 +327,7 @@ public class Minesweeper {
      * Handles right click, sets field status.
      * @param field clicked field
      */
-    private void rightClickOnField(Field field) {
+    private void manageRightClickOnField(Field field) {
         // if we have no more mines
         if ((!field.isMarked() && mineCounter.getText().equals("000")))
             return;
