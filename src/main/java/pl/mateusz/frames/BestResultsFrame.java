@@ -8,8 +8,11 @@ import java.awt.*;
 
 public class BestResultsFrame extends JDialog {
     private final JLabel beginnerResultLabel = new JLabel();
+    private final JLabel beginnerDateLabel = new JLabel();
     private final JLabel intermediateResultLabel = new JLabel();
+    private final JLabel intermediateDateLabel = new JLabel();
     private final JLabel expertResultLabel = new JLabel();
+    private final JLabel expertDateLabel = new JLabel();
     private final BestResults bestResults;
 
     public BestResultsFrame(BestResults bestResults) {
@@ -34,10 +37,16 @@ public class BestResultsFrame extends JDialog {
         int beginnerResult = bestResults.getResult(Difficulty.BEGINNER);
         int intermediateResult = bestResults.getResult(Difficulty.INTERMEDIATE);
         int expertResult = bestResults.getResult(Difficulty.EXPERT);
+        String beginnerDate = bestResults.getDate(Difficulty.BEGINNER);
+        String intermediateDate = bestResults.getDate(Difficulty.INTERMEDIATE);
+        String expertDate = bestResults.getDate(Difficulty.EXPERT);
 
         beginnerResultLabel.setText(beginnerResult + " seconds");
+        beginnerDateLabel.setText(beginnerDate);
         intermediateResultLabel.setText(intermediateResult + " seconds");
+        intermediateDateLabel.setText(intermediateDate);
         expertResultLabel.setText(expertResult + " seconds");
+        expertDateLabel.setText(expertDate);
     }
 
     private void configureResultsPanel() {
@@ -46,10 +55,13 @@ public class BestResultsFrame extends JDialog {
 
         resultsPanel.add(new JLabel("Beginner:"));
         resultsPanel.add(beginnerResultLabel);
+        resultsPanel.add(beginnerDateLabel);
         resultsPanel.add(new JLabel("Intermediate:"));
         resultsPanel.add(intermediateResultLabel);
+        resultsPanel.add(intermediateDateLabel);
         resultsPanel.add(new JLabel("Expert:"));
         resultsPanel.add(expertResultLabel);
+        resultsPanel.add(expertDateLabel);
         this.add(resultsPanel, BorderLayout.NORTH);
     }
 
