@@ -191,7 +191,7 @@ public class Minesweeper {
         resetButton.playWinAnimation();
 
         /*
-         * Displaying JOptionPane with score and logo icon.
+         * Displaying JOptionPane with score, difficulty and logo icon.
          * Player can either play again (choice=0) or exit (choice=1)
          */
         String[] options = {"Yes","No"};
@@ -200,14 +200,14 @@ public class Minesweeper {
         URL winOptionPaneIconURL = getClass().getResource("/images/icons/icon_spinning.gif");
         if (winOptionPaneIconURL != null)
             winOptionPaneIcon = new ImageIcon(winOptionPaneIconURL);
-        //TODO add information about difficulty
-        int choice = JOptionPane.showOptionDialog(null, "You've won! Your score is: " + score
-                + " seconds. Do you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
+
+        int choice = JOptionPane.showOptionDialog(null, "You've won!\nScore: " + score
+                + " seconds. Difficulty: "+ difficulty + "\nDo you want to play again?", "Congratulations!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE
                 , winOptionPaneIcon, options, null);
 
         if (choice==0) // if user wants to play again
             restart();
-        else           // if user wants to exit we terminate frame
+        else           // if user wants to exit
             frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
