@@ -1,9 +1,7 @@
 package pl.mateusz;
 
 import lombok.Getter;
-
 import javax.swing.*;
-import java.awt.*;
 @Getter
 public class MyMenuBar extends JMenuBar {
     private final JMenuItem newItem = new JMenuItem("New");
@@ -15,10 +13,10 @@ public class MyMenuBar extends JMenuBar {
     private final JMenuItem exitItem = new JMenuItem("Exit");
     public MyMenuBar() {
         JMenu gameMenu = new JMenu("Game");
-        JMenu helpMenu = new JMenu("Help");
+        JMenu themesMenu = new JMenu("Themes");
 
         this.add(gameMenu);
-        this.add(helpMenu);
+        this.add(themesMenu);
 
         gameMenu.add(newItem);
         gameMenu.addSeparator();
@@ -34,10 +32,10 @@ public class MyMenuBar extends JMenuBar {
         beginnerItem.setSelected(true);
 
         JMenuItem aboutItem = new JMenuItem("About Minesweeper");
-        helpMenu.add(aboutItem);
+        themesMenu.add(aboutItem);
 
         //TODO temporarily disabled
-        helpMenu.setEnabled(false);
+        themesMenu.setEnabled(false);
 
     }
 }
