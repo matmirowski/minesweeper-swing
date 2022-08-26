@@ -32,6 +32,8 @@ public class Minesweeper {
     /** Ammount of bombs "planted" in the current game */
     private int mines;
     private int size;
+    private int height;
+    private int width;
     private Difficulty difficulty;
     private BestResults bestResults;
 
@@ -55,28 +57,31 @@ public class Minesweeper {
     public void init() {
         frame.generatePanels();
         frame.addComponentsToPanels(mineCounter, resetButton, stopwatch);
-        setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.SIZE, Difficulty.BEGINNER.MINES);
+        setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.HEIGHT,
+                Difficulty.BEGINNER.WIDTH, Difficulty.BEGINNER.MINES);
         resetButton.addActionListener(e -> restart());
         frame.setVisible(true);
     }
 
     /**
      * Generating game fields
-     * @param size number of fields in 1 row (if game is 8x8 size should equal 8)
+     * @param height number of fields in a column
+     * @param width number of fields in a row
      */
-    private void generateFields(int size) {
-        for(int y=1; y<=size; y++) {
-            for(int x=1; x<=size; x++) {
+    private void generateFields(int height, int width) {
+        for(int y=1; y<=height; y++) {
+            for(int x=1; x<=width; x++) {
                 Field f = new Field(x,y);
                 f.setPreferredSize(new Dimension(30,30));
                 f.setFocusable(false);
                 f.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
                 assignMouseListener(f);
-                frame.getGamePanel().setLayout(new GridLayout(size,size,0,0));
+                frame.getGamePanel().setLayout(new GridLayout(height, width,0,0));
                 frame.addComponentsToPanels(f);
                 fields.add(f);
                 frame.pack();
-                this.size = size;
+                this.height = height;
+                this.width = width;
             }
         }
     }
@@ -362,7 +367,8 @@ public class Minesweeper {
         // Beginner
         menuBar.getBeginnerItem().addActionListener(e -> {
             if (menuBar.getBeginnerItem().isSelected())
-                setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.SIZE, Difficulty.BEGINNER.MINES);
+                setDifficulty(Difficulty.BEGINNER, Difficulty.BEGINNER.HEIGHT,
+                        Difficulty.BEGINNER.WIDTH, Difficulty.BEGINNER.MINES);
             else
                 menuBar.getBeginnerItem().setSelected(true);
         });
@@ -370,7 +376,8 @@ public class Minesweeper {
         // Intermediate
         menuBar.getIntermediateItem().addActionListener(e -> {
             if (menuBar.getIntermediateItem().isSelected())
-                setDifficulty(Difficulty.INTERMEDIATE, Difficulty.INTERMEDIATE.SIZE, Difficulty.INTERMEDIATE.MINES);
+                setDifficulty(Difficulty.INTERMEDIATE, Difficulty.INTERMEDIATE.HEIGHT,
+                        Difficulty.INTERMEDIATE.WIDTH, Difficulty.INTERMEDIATE.MINES);
             else
                 menuBar.getIntermediateItem().setSelected(true);
         });
@@ -378,18 +385,20 @@ public class Minesweeper {
         // Expert
         menuBar.getExpertItem().addActionListener(e -> {
             if (menuBar.getExpertItem().isSelected())
-                setDifficulty(Difficulty.EXPERT, Difficulty.EXPERT.SIZE, Difficulty.EXPERT.MINES);
+                setDifficulty(Difficulty.EXPERT, Difficulty.EXPERT.HEIGHT,
+                        Difficulty.EXPERT.WIDTH, Difficulty.EXPERT.MINES);
             else
                 menuBar.getExpertItem().setSelected(true);
         });
 
         // Custom
         menuBar.getCustomItem().addActionListener(e -> {
-            CustomFrame customFrame = new CustomFrame(size, mines);
+            CustomFrame customFrame = new CustomFrame(height, width, mines);
             if (!customFrame.isCancelled()) {
-                int newSize = customFrame.getNewSize();
+                int newHeight = customFrame.getNewHeight();
+                int newWidth = customFrame.getNewWidth();
                 int newMines = customFrame.getNewMines();
-                setDifficulty(Difficulty.CUSTOM, newSize, newMines);
+                setDifficulty(Difficulty.CUSTOM, newHeight, newWidth, newMines);
             }
             else {
                 menuBar.getCustomItem().setSelected(!menuBar.getCustomItem().isSelected());
@@ -413,7 +422,7 @@ public class Minesweeper {
      * Changes difficulty of the game.
      * @param difficulty new level of difficulty
      */
-    private void setDifficulty(Difficulty difficulty, int size, int mines) {
+    private void setDifficulty(Difficulty difficulty, int height, int width, int mines) {
         switch (difficulty) {
             case BEGINNER -> {
                 menuBar.getIntermediateItem().setSelected(false);
@@ -439,7 +448,7 @@ public class Minesweeper {
         }
         this.difficulty = difficulty;
         deleteAllFields();
-        generateFields(size);
+        generateFields(height, width);
         generateBombs(mines);
         assignNumbersToFields();
         restart();

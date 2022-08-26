@@ -1,13 +1,16 @@
 package pl.mateusz;
 
 public enum Difficulty {
-    BEGINNER(8,10), INTERMEDIATE(16,40), EXPERT(24,80), CUSTOM(0,0);
+    BEGINNER(8,8,10), INTERMEDIATE(16,16,40),
+    EXPERT(24, 24,80), CUSTOM(0,0,0);
 
-    public final int SIZE;
+    public final int HEIGHT;
+    public final int WIDTH;
     public final int MINES;
 
-    Difficulty(int SIZE, int MINES) {
-        this.SIZE = SIZE;
+    Difficulty(int HEIGHT, int WIDTH, int MINES) {
+        this.HEIGHT = HEIGHT;
+        this.WIDTH = WIDTH;
         this.MINES = MINES;
     }
 }
